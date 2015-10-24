@@ -22,9 +22,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Create code edit tab area
     textEditTab->setTabShape(QTabWidget::Triangular);
-    textEditTab->setDocumentMode(true);
+    textEditTab->setDocumentMode(false);
+    textEditTab->setMovable(true);
+    textEditTab->setTabsClosable(true);
     ui->editArea->setWidget(textEditTab);
-    textEditTab->addCodeTab("Unknown");
+    textEditTab->addCodeTab("Unkown");
+    textEditTab->addCodeTab("Unkown");
 }
 
 void MainWindow::load(AssetManager *inAssetManager)

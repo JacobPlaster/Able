@@ -1,14 +1,16 @@
+QWidget
+{
+    background-color: rgb(110, 110, 110);
+    border-bottom: none;
+}
+
 QPlainTextEdit
 {
   background: rgb(56, 56, 56);
   color: white;
   padding-left: 5px;
+  border: none;
 }
-#lineNumberArea
-{
-  background: rgb(32, 32, 32);
-}
-
 #fileViewTreeBox
 {
   background: rgb(38, 38, 38);
@@ -16,15 +18,26 @@ QPlainTextEdit
   color: white;
 }
 
-#lineCountListWidget
-{
-  background: rgb(64, 64, 64);
-  color: lightgrey;
-  text-align: center;
-  padding-top: 5px;
+QTabWidget::pane {
+    background-color: red;
 }
-#lineCountListWidget::item
-{
-  padding:0px;
-  margin: 0;
+QTabBar::tab {
+  color: grey;
+  padding: 4px;
+  background: rgb(50, 50, 50);
+  color: white;
+  margin-top: 3px 2px;
+  float: left;
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+}
+QTabBar::tab:selected {
+  padding: 4px;
+  background: rgb(56, 56, 56);
+  color: white;
+  float: left;
+}
+QTabWidget::tab-bar {
+  border: none;
+  background-color: rgb(38, 38, 38);
 }
