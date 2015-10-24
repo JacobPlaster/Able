@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "assetmanager.h"
 #include "codeeditor.h"
+#include "textedittabwidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -23,6 +24,7 @@ private:
     void resizeEvent(QResizeEvent* event);
     AssetManager * assetManager;
     CodeEditor * codeEditor;
+    TextEditTabWidget * textEditTab;
 };
 
 #endif // MAINWINDOW_H

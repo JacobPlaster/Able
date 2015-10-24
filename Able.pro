@@ -14,10 +14,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     assetmanager.cpp \
-    codeeditor.cpp
+    codeeditor.cpp \
+    textedittabwidget.cpp
 
 HEADERS  += mainwindow.h \
     assetmanager.h \
-    codeeditor.h
+    codeeditor.h \
+    textedittabwidget.h
 
 FORMS    += mainwindow.ui
