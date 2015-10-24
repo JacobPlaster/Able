@@ -20,7 +20,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->fileViewTreeBox->setFont(QFont("Times", 20, QFont::Bold));
 
     codeEditor = new CodeEditor();
-    ui->codeEditorLayout->addWidget(codeEditor);
+    codeEditor->setTabStopWidth(40);
+    codeEditor->setWordWrapMode(QTextOption::NoWrap);
+     ui->codeAreaTabWidget->addTab(codeEditor, "Unkown");
 }
 
 void MainWindow::load(AssetManager *inAssetManager)
@@ -33,6 +35,7 @@ void MainWindow::load(AssetManager *inAssetManager)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete codeEditor;
 }
 
 // Resize the code text area and fileListBox to fit the screen responsively
@@ -40,7 +43,7 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 {
     ui->fileViewTreeBox->resize(ui->fileViewTreeBox->width(), ui->centralWidget->height()+1);
     ui->codeAreaTabWidget->resize(ui->centralWidget->width() - ui->fileViewTreeBox->width()+1, ui->centralWidget->height()+1);
-    codeEditor->resize(ui->codeAreaTabWidget->width(), ui->codeAreaTabWidget->height());
+    codeEditor->resize(ui->codeAreaTabWidget->width(), ui->codeAreaTabWidget->height()-24);
 }
 
 

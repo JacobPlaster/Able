@@ -70,7 +70,14 @@
         <height>481</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="codeEditorLayout"/>
+      <layout class="QVBoxLayout" name="codeEditorLayout">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetNoConstraint</enum>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+      </layout>
      </widget>
     </widget>
    </widget>
