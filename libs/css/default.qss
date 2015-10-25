@@ -1,6 +1,6 @@
 QWidget
 {
-    background-color: rgb(110, 110, 110);
+    background-color: rgb(180, 180, 180);
     border-bottom: none;
 }
 
@@ -22,22 +22,17 @@ QTabWidget::pane {
     background-color: red;
 }
 QTabBar::tab {
-  color: grey;
-  padding: 4px;
-  background: rgb(50, 50, 50);
-  color: white;
-  margin-top: 3px 2px;
-  float: left;
-  border-top-right-radius: 2px;
-  border-top-left-radius: 2px;
+  padding: 5px 4px;
+  color: rgb(58, 58, 58);
+  margin: 5px 10px;
+  border-radius: 2px;
 }
 QTabBar::tab:selected {
-  padding: 4px;
-  background: rgb(56, 56, 56);
-  color: white;
-  float: left;
+  color: rgb(5, 5, 5);
+  background: rgb(190, 190, 190);
+  border: 1px solid rgb(130, 130, 130);
 }
-QTabWidget::tab-bar {
-  border: none;
-  background-color: rgb(38, 38, 38);
+QTabBar::tab::close-button {
+  position: relative;
+  right: 10px;
 }

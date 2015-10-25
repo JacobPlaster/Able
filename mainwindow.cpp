@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     textEditTab->setTabsClosable(true);
     ui->editArea->setWidget(textEditTab);
     textEditTab->addCodeTab("Unkown");
-    textEditTab->addCodeTab("Unkown");
+    textEditTab->addCodeTab("Something.txt");
 }
 
 void MainWindow::load(AssetManager *inAssetManager)
