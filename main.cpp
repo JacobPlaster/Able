@@ -3,7 +3,6 @@
 #include "codeeditor.h"
 
 #include <QApplication>
-#include <QDebug>
 #include <QDir>
 #include <QFontDatabase>
 

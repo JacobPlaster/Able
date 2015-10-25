@@ -17,7 +17,7 @@ class TextEditTabWidget : public QTabWidget
 
 public:
     TextEditTabWidget(QWidget *parent = 0);
-    void addCodeTab(const QString &);
+    bool addCodeTab(const QString &, const QString &);
 
 protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;

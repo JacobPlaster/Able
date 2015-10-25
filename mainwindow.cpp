@@ -26,8 +26,10 @@ MainWindow::MainWindow(QWidget *parent) :
     textEditTab->setMovable(true);
     textEditTab->setTabsClosable(true);
     ui->editArea->setWidget(textEditTab);
-    textEditTab->addCodeTab("Unkown");
-    textEditTab->addCodeTab("Something.txt");
+
+    textEditTab->addCodeTab("mainwindow.cpp", "/Users/jacobplaster/Documents/Able/mainwindow.cpp");
+    textEditTab->addCodeTab("assetmanager.cpp", "/Users/jacobplaster/Documents/Able/assetmanager.cpp");
+    textEditTab->addCodeTab("codeeditor.cpp", "/Users/jacobplaster/Documents/Able/codeeditor.h");
 }
 
 void MainWindow::load(AssetManager *inAssetManager)
