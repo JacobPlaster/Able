@@ -4,6 +4,7 @@
 #include <QTabWidget>
 #include <QObject>
 #include "codeeditor.h"
+#include "assetmanager.h"
 
 class QPaintEvent;
 class QResizeEvent;
@@ -17,7 +18,11 @@ class TextEditTabWidget : public QTabWidget
 
 public:
     TextEditTabWidget(QWidget *parent = 0);
-    bool addCodeTab(const QString &, const QString &);
+    bool addCodeTab(const QString &);
+    void load(AssetManager *inAssetManager);
+
+private:
+    AssetManager *assetManager;
 
 protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;

@@ -17,6 +17,14 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     textEditTab = new TextEditTabWidget();
+}
+
+void MainWindow::load(AssetManager *inAssetManager)
+{
+    // load static files
+    assetManager = inAssetManager;
+    textEditTab->load(assetManager);
+
     ui->fileViewTreeBox->setAttribute(Qt::WA_MacShowFocusRect, 0);
     ui->fileViewTreeBox->setFont(QFont("Times", 20, QFont::Bold));
 
@@ -27,16 +35,9 @@ MainWindow::MainWindow(QWidget *parent) :
     textEditTab->setTabsClosable(true);
     ui->editArea->setWidget(textEditTab);
 
-    textEditTab->addCodeTab("mainwindow.cpp", "/Users/jacobplaster/Documents/Able/mainwindow.cpp");
-    textEditTab->addCodeTab("assetmanager.cpp", "/Users/jacobplaster/Documents/Able/assetmanager.cpp");
-    textEditTab->addCodeTab("codeeditor.cpp", "/Users/jacobplaster/Documents/Able/codeeditor.h");
-}
-
-void MainWindow::load(AssetManager *inAssetManager)
-{
-    assetManager = inAssetManager;
-
- //   ui->codeEditorArea->setFont(assetManager->getFont("MAIN_CODE_FONT"));
+    textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/mainwindow.cpp");
+    textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/assetmanager.cpp");
+    textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/codeeditor.h");
 }
 
 MainWindow::~MainWindow()

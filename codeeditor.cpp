@@ -1,4 +1,7 @@
 #include <QtWidgets>
+#include <QMessageBox>
+#include <QTextBlock>
+#include <QTextCursor>
 
 #include "codeeditor.h"
 
@@ -6,6 +9,7 @@
 CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
     lineNumberArea = new LineNumberArea(this);
+    syntaxHighlighter = new SyntaxHighlighter(this->document());
 
     connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
     connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLineNumberArea(QRect,int)));
@@ -15,6 +19,43 @@ CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
     highlightCurrentLine();
 }
 
+bool CodeEditor::loadFile(const QString &fileString)
+{
+    clear();
+    // load file
+    QFile file(fileString);
+    // check if file exists
+    if(file.exists())
+    {
+        // check if file is readable
+        if(!file.open(QIODevice::ReadOnly)) {
+            QMessageBox::information(0, "error", file.errorString());
+            return false;
+        }
+    } else
+    {
+        QMessageBox::information(0, "Error", file.errorString());
+        return false;
+    }
+    QTextStream in(&file);
+    if(currentFile == NULL)
+        delete currentFile;
+    currentFile = new QFileInfo(file);
+
+    // read line by line
+    while(!in.atEnd()) {
+        QString line = in.readLine();
+        appendPlainText(line);
+    }
+    // close file (ALWAYS)
+    file.close();
+    return true;
+}
+
+QFileInfo * CodeEditor::getCurrentFileInfo() const
+{
+    return currentFile;
+}
 
 
 int CodeEditor::lineNumberAreaWidth()
@@ -105,4 +146,10 @@ void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
         bottom = top + (int) blockBoundingRect(block).height();
         ++blockNumber;
     }
+}
+
+CodeEditor::~CodeEditor()
+{
+    delete currentFile;
+    delete syntaxHighlighter;
 }

@@ -9,45 +9,29 @@ TextEditTabWidget::TextEditTabWidget(QWidget *parent) : QTabWidget(parent)
 
 }
 
+void TextEditTabWidget::load(AssetManager *inAssetManager)
+{
+    assetManager = inAssetManager;
+}
+
 void TextEditTabWidget::resizeEvent(QResizeEvent *e)
 {
     QTabWidget::resizeEvent(e);
 }
 
-bool TextEditTabWidget::addCodeTab(const QString &titleString, const QString &fileString)
+bool TextEditTabWidget::addCodeTab(const QString &fileString)
 {
-    // load file
-    QFile file(fileString);
-    // check if file exists
-    if(file.exists())
-    {
-        // check if file is readable
-        if(!file.open(QIODevice::ReadOnly)) {
-            QMessageBox::information(0, "error", file.errorString());
-            return false;
-        }
-    } else
-    {
-        QMessageBox::information(0, "Error", file.errorString());
-        return false;
-    }
-    QTextStream in(&file);
-
     // create new code editor widget
     CodeEditor * newCodeEditor = new CodeEditor();
-    newCodeEditor->setTabStopWidth(35);
+    if(!newCodeEditor->loadFile(fileString))
+        return false;
+    newCodeEditor->loadFile(fileString);
+    newCodeEditor->setTabStopWidth(30);
     newCodeEditor->setWordWrapMode(QTextOption::NoWrap);
-
-    // read line by line
-    while(!in.atEnd()) {
-        QString line = in.readLine();
-        newCodeEditor->appendPlainText(line);
-    }
-    // close file (ALWAYS)
-    file.close();
+    newCodeEditor->setFont(assetManager->getFont("MAIN_CODE_FONT"));
 
     // add new widget
-    addTab(newCodeEditor, titleString);
+    addTab(newCodeEditor, newCodeEditor->getCurrentFileInfo()->fileName());
 
     return true;
 }

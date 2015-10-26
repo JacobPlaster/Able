@@ -3,6 +3,9 @@
 
 #include <QPlainTextEdit>
 #include <QObject>
+#include <QFileInfo>
+
+#include "syntaxhighlighter.h"
 
 class QPaintEvent;
 class QResizeEvent;
@@ -18,9 +21,12 @@ class CodeEditor : public QPlainTextEdit
 
 public:
     CodeEditor(QWidget *parent = 0);
+    ~CodeEditor();
 
     void lineNumberAreaPaintEvent(QPaintEvent *event);
     int lineNumberAreaWidth();
+    bool loadFile(const QString &);
+    QFileInfo * getCurrentFileInfo() const;
 
 protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
@@ -32,6 +38,8 @@ private slots:
 
 private:
     QWidget *lineNumberArea;
+    QFileInfo *currentFile;
+    SyntaxHighlighter *syntaxHighlighter;
 };
 
 
