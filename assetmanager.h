@@ -17,6 +17,7 @@ class AssetManager
 
         // fonts
         QFont srcCodeLightFont;
+        QFont mainAppFont;
 
         // styles
         QString defaultStyle;

@@ -12,8 +12,10 @@ void AssetManager::loadAssets()
 
     // load default font
     int id1 = QFontDatabase::addApplicationFont("/Users/jacobplaster/Documents/Able/libs/fonts/SourceCodePro-Light.ttf");
-    QString srcCodeLightFontString = QFontDatabase::applicationFontFamilies(id1).at(0);
-    srcCodeLightFont = srcCodeLightFontString;
+    srcCodeLightFont = QFontDatabase::applicationFontFamilies(id1).at(0);
+
+    int id2 = QFontDatabase::addApplicationFont("/Users/jacobplaster/Documents/Able/libs/fonts/Muli-Light.ttf");
+    mainAppFont = QFontDatabase::applicationFontFamilies(id2).at(0);
 
     // load css stylesheets
     QFile styleFile("/Users/jacobplaster/Documents/Able/libs/css/default.qss");
@@ -44,6 +46,8 @@ QFont AssetManager::getFont(const std::string &font) const
     {
         if(font == "MAIN_CODE_FONT")
             return srcCodeLightFont;
+        if(font == "MAIN_APP_FONT")
+            return mainAppFont;
 
         qDebug() << "Success, loading font: ";
     } else
