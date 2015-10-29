@@ -98,32 +98,28 @@ void MainWindow::runUnitTests()
     testFile.open (date_time_now.c_str());
 
     // load initial tab so all resources get initiated
-    textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/assetmanager.cpp");
+    textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/mainwindow.cpp");
 
     testFile << date_time_now << "\n";
     testFile << "------ SPEED TESTING FOR LOADING FUNCTIONS ------\n\n\n";
 
-    testFile << "cpp tests:";
-    testFile << "addCodeTab(\"/Users/jacobplaster/Documents/Able/mainwindow.cpp\")\n\n\n";
-    timer.restart();
-    textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/mainwindow.cpp");
-    testFile << "Time to complete task: " << timer.elapsed() << " milliseconds";
-    testFile << "\n\n\n";
-
-    testFile << "html tests:";
-    testFile << "addCodeTab(\"/Users/jacobplaster/Documents/simic_website_2/index.html\")\n\n\n";
-    timer.restart();
-    textEditTab->addCodeTab("/Users/jacobplaster/Documents/simic_website_2/index.html");
-    testFile << "Time to complete task: " << timer.elapsed() << " milliseconds";
-    testFile << "\n\n\n";
-
-    testFile << "Plain text tests:";
-    testFile << "addCodeTab(\"/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/HarryPotter(xlarge).txt\")\n\n\n";
-    timer.restart();
-    textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/HarryPotter(xlarge).txt");
-    testFile << "Time to complete task: " << timer.elapsed() << " milliseconds";
-    testFile << "\n\n\n";
-
+    // Run tests on all files in this dir
+    QDir lsDir("/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets");
+    QFileInfoList allLs = lsDir.entryInfoList();
+    foreach (QFileInfo fileI, allLs){
+        // if is a file and is a cfg file
+        if (!fileI.isDir())
+        {
+            qDebug() << fileI.absoluteFilePath();
+            testFile << fileI.completeSuffix().toStdString() << " test: \n";
+            testFile << "File: " << fileI.absoluteFilePath().toStdString() << "\n";
+            timer.restart();
+            textEditTab->addCodeTab(fileI.absoluteFilePath());
+            testFile << "Time to load and process: " << timer.elapsed() << " milliseconds \n";
+            testFile << "File size: " << fileI.size() << "bytes";
+            testFile << "\n\n\n";
+        }
+    }
     testFile.close();
 
     // open newly created file

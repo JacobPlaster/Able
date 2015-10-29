@@ -1,0 +1,28 @@
+/Users/jacobplaster/Documents/Able/libs/tests/speedTests/speedTest-(29.10.2015 6:32:37 p.m.).txt
+------ SPEED TESTING FOR LOADING FUNCTIONS ------
+
+
+cpp test: 
+File: /Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/assetmanager.cpp
+Time to complete task: 137 milliseconds 
+File size: 7208bytes
+
+
+txt test: 
+File: /Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/HarryPotter(xlarge).txt
+Time to complete task: 167 milliseconds 
+File size: 56450bytes
+
+
+html test: 
+File: /Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/team.html
+Time to complete task: 36 milliseconds 
+File size: 7373bytes
+
+
+py test: 
+File: /Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/UnitTesting.py
+Time to complete task: 38 milliseconds 
+File size: 10734bytes
+
+
