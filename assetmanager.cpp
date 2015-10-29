@@ -81,29 +81,30 @@ void AssetManager::loadAllLanguageSupport()
            file.open( QFile::ReadOnly );
            QTextStream fileStream(&file);
            // load into variables
-            loadLanguageSupportFile(fileStream);
+           loadLanguageSupportFile(fileStream);
            file.close();
        }
    }
 }
 
-SyntaxHighlightingRuleSet AssetManager::getLanguageSupportRuleSet(QString &language)
+SyntaxHighlightingRuleSet * AssetManager::getLanguageSupportRuleSet(QString &language)
 {
     for (int i=0; i < syntaxHighlightingRules.length(); i++)
     {
-        for (int i2=0; i2 < syntaxHighlightingRules[i].languageSupport.length(); i2++)
+        for (int i2=0; i2 < syntaxHighlightingRules[i]->languageSupport.length(); i2++)
         {
-            if(language == syntaxHighlightingRules[i].languageSupport[i2])
+            if(language == syntaxHighlightingRules[i]->languageSupport[i2])
                 return syntaxHighlightingRules[i];
         }
     }
+    return NULL;
 }
 
 // Parses the file into an object that the syntax highlighting algorithm can understand
 void AssetManager::loadLanguageSupportFile(QTextStream &in)
 {
     int state = -1;
-    SyntaxHighlightingRuleSet sRuleSet;
+    SyntaxHighlightingRuleSet *sRuleSet = new SyntaxHighlightingRuleSet();
     QString currentColor;
     QString prevColor;
 
@@ -130,20 +131,26 @@ void AssetManager::loadLanguageSupportFile(QTextStream &in)
             SyntaxHighlightingRuleSet::HighlightingRule rule;
             // language support
             if(state==0)
-                sRuleSet.languageSupport.append(line);
+            {
+                sRuleSet->languageSupport.append(line);
+            }
             //comment_Start_Expression
             if(state==1)
-                sRuleSet.commentStartExpression = QRegExp(line);
+            {
+                sRuleSet->commentStartExpression = QRegExp(line);
+            }
             // comment_End_Expression
             if(state==2)
-                sRuleSet.commentEndExpression = QRegExp(line);
+            {
+                sRuleSet->commentEndExpression = QRegExp(line);
+            }
             // Operator_Format
             if(state==3)
             {
                 qtf.setForeground(QColor(currentColor));
                 rule.pattern = QRegExp(line);
                 rule.format = qtf;
-                sRuleSet.highlightingRules.append(rule);
+                sRuleSet->highlightingRules.append(rule);
             }
             // number_Format
             if(state==4)
@@ -152,11 +159,11 @@ void AssetManager::loadLanguageSupportFile(QTextStream &in)
                 qtf.setForeground(QColor(currentColor));
                 rule.pattern = QRegExp(line);
                 rule.format = qtf;
-                sRuleSet.highlightingRules.append(rule);
+                sRuleSet->highlightingRules.append(rule);
             }
             // Keyword formats
             if(state==5)
-                sRuleSet.keywordPatterns << line;
+                sRuleSet->keywordPatterns << line;
             // function_Format
             if(state==6)
             {
@@ -164,7 +171,7 @@ void AssetManager::loadLanguageSupportFile(QTextStream &in)
                 qtf.setForeground(QColor(currentColor));
                 rule.pattern = QRegExp(line);
                 rule.format = qtf;
-                sRuleSet.highlightingRules.append(rule);
+                sRuleSet->highlightingRules.append(rule);
             }
             // class_Format
             if(state==7)
@@ -173,17 +180,17 @@ void AssetManager::loadLanguageSupportFile(QTextStream &in)
                 qtf.setForeground(QColor(prevColor));
                 qtf.setFontWeight(QFont::Bold);
                 // load all as seperate expressions
-                foreach (const QString &pattern, sRuleSet.keywordPatterns) {
+                foreach (const QString &pattern, sRuleSet->keywordPatterns) {
                     rule.pattern = QRegExp(pattern);
                     rule.format = qtf;
-                    sRuleSet.highlightingRules.append(rule);
+                    sRuleSet->highlightingRules.append(rule);
                 }
                 // handle class format
                 qtf.setFontWeight(QFont::Bold);
                 qtf.setForeground(QColor(currentColor));
                 rule.pattern = QRegExp(line);
                 rule.format = qtf;
-                sRuleSet.highlightingRules.append(rule);
+                sRuleSet->highlightingRules.append(rule);
             }
             // Other_Format
             if(state==8)
@@ -191,7 +198,7 @@ void AssetManager::loadLanguageSupportFile(QTextStream &in)
                 qtf.setForeground(QColor(currentColor));
                 rule.pattern = QRegExp(line);
                 rule.format = qtf;
-                sRuleSet.highlightingRules.append(rule);
+                sRuleSet->highlightingRules.append(rule);
             }
             // single_Line_Comment_Format
             if(state==9)
@@ -200,11 +207,11 @@ void AssetManager::loadLanguageSupportFile(QTextStream &in)
                 qtfs.setForeground(QColor(currentColor));
                 rule.pattern = QRegExp(line);
                 rule.format = qtfs;
-                sRuleSet.highlightingRules.append(rule);
+                sRuleSet->highlightingRules.append(rule);
             }
             // multi_line_Comment_Format
            if(state==10)
-                sRuleSet.multiLineCommentFormat.setForeground(QColor(currentColor));
+                sRuleSet->multiLineCommentFormat.setForeground(QColor(currentColor));
             // Quotation_Format
             if(state==11)
             {
@@ -213,7 +220,7 @@ void AssetManager::loadLanguageSupportFile(QTextStream &in)
                 qtfq.setForeground(QColor(currentColor));
                 rule.pattern = QRegExp(line);
                 rule.format = qtfq;
-                sRuleSet.highlightingRules.append(rule);
+                sRuleSet->highlightingRules.append(rule);
             }
         }
     }

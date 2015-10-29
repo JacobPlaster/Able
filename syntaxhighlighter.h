@@ -15,7 +15,7 @@ class SyntaxHighlighter: public QSyntaxHighlighter
 
     private:
        AssetManager *assetManager;
-       SyntaxHighlightingRuleSet ruleSet;
+       SyntaxHighlightingRuleSet *ruleSet;
 
        bool languageSet;
 };

@@ -7,6 +7,7 @@
 #include <QSplitter>
 #include <QFontDatabase>
 #include <QHBoxLayout>
+#include <QFileDialog>
 
 #include <string>
 #include <sstream>
@@ -17,6 +18,31 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     textEditTab = new TextEditTabWidget();
+
+    menu_bar = new QMenuBar(this);
+    menu_bar->setNativeMenuBar(true);
+    loadMenuBar();
+}
+
+void MainWindow::loadMenuBar()
+{
+    QMenu *oneMenu = new QMenu("File");
+
+    oneMenu->addAction("New");
+    QAction *fileAction = oneMenu->addAction("Open File");
+    connect(fileAction, SIGNAL(triggered()), this, SLOT(loadFile()));
+
+    oneMenu->addAction("Save");
+    oneMenu->addAction("Save as");
+
+    menu_bar->addAction(oneMenu->menuAction());
+}
+
+void MainWindow::loadFile()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
+                                                    "/home/documents");
+    textEditTab->addCodeTab(fileName);
 }
 
 void MainWindow::load(AssetManager *inAssetManager)
@@ -36,7 +62,6 @@ void MainWindow::load(AssetManager *inAssetManager)
     ui->editArea->setWidget(textEditTab);
 
     textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/mainwindow.cpp");
-    textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/assetmanager.cpp");
     textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/codeeditor.h");
     textEditTab->addCodeTab("/Users/jacobplaster/Documents/simic_website/index.html");
 }

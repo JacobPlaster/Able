@@ -13,7 +13,7 @@ class AssetManager
         QFont getFont(const std::string &font) const;
         QString getStyle(const std::string &style) const;
         void loadAssets();
-        SyntaxHighlightingRuleSet getLanguageSupportRuleSet(QString &language);
+        SyntaxHighlightingRuleSet * getLanguageSupportRuleSet(QString &language);
     private:
         bool isLoaded;
 
@@ -27,7 +27,7 @@ class AssetManager
         void loadAllLanguageSupport();
         void loadLanguageSupportFile(QTextStream &);
         QString LIBS_FILEPATH;
-        QVector<SyntaxHighlightingRuleSet> syntaxHighlightingRules;
+        QVector<SyntaxHighlightingRuleSet*> syntaxHighlightingRules;
 
 };
 

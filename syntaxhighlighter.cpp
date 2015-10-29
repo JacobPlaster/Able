@@ -9,14 +9,15 @@ void SyntaxHighlighter::load(AssetManager *am, QString lan)
 {
     assetManager = am;
     ruleSet = am->getLanguageSupportRuleSet(lan);
-    languageSet = true;
+    if(ruleSet != NULL)
+        languageSet = true;
 }
 
 void SyntaxHighlighter::highlightBlock(const QString &text)
 {
     if(languageSet)
     {
-        foreach (const SyntaxHighlightingRuleSet::HighlightingRule rule, ruleSet.highlightingRules) {
+        foreach (const SyntaxHighlightingRuleSet::HighlightingRule rule, ruleSet->highlightingRules) {
             QRegExp expression(rule.pattern);
             int index = expression.indexIn(text);
             while (index >= 0) {
@@ -29,20 +30,20 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
 
         int startIndex = 0;
         if (previousBlockState() != 1)
-            startIndex = ruleSet.commentStartExpression.indexIn(text);
+            startIndex = ruleSet->commentStartExpression.indexIn(text);
 
         while (startIndex >= 0) {
-            int endIndex = ruleSet.commentEndExpression.indexIn(text, startIndex);
+            int endIndex = ruleSet->commentEndExpression.indexIn(text, startIndex);
             int commentLength;
             if (endIndex == -1) {
                 setCurrentBlockState(1);
                 commentLength = text.length() - startIndex;
             } else {
                 commentLength = endIndex - startIndex
-                        + ruleSet.commentEndExpression.matchedLength();
+                        + ruleSet->commentEndExpression.matchedLength();
             }
-            setFormat(startIndex, commentLength, ruleSet.multiLineCommentFormat);
-            startIndex = ruleSet.commentStartExpression.indexIn(text, startIndex + commentLength);
+            setFormat(startIndex, commentLength, ruleSet->multiLineCommentFormat);
+            startIndex = ruleSet->commentStartExpression.indexIn(text, startIndex + commentLength);
         }
     }
 }
