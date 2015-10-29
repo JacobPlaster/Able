@@ -29,6 +29,11 @@ bool TextEditTabWidget::addCodeTab(const QString &fileString)
     if(!newCodeEditor->loadFile(fileString))
         return false;
 
+    // move cursor back to top of page
+    QTextCursor cursor(newCodeEditor->textCursor());
+    cursor.movePosition(QTextCursor::Start);
+    newCodeEditor->setTextCursor(cursor);
+
     newCodeEditor->setTabStopWidth(30);
     newCodeEditor->setWordWrapMode(QTextOption::NoWrap);
     newCodeEditor->setFont(assetManager->getFont("MAIN_CODE_FONT"));

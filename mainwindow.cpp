@@ -63,7 +63,7 @@ void MainWindow::load(AssetManager *inAssetManager)
 
     textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/mainwindow.cpp");
     textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/codeeditor.h");
-    textEditTab->addCodeTab("/Users/jacobplaster/Documents/simic_website/index.html");
+    textEditTab->addCodeTab("/Users/jacobplaster/Documents/simic_website_2/index.html");
 }
 
 MainWindow::~MainWindow()
