@@ -1,21 +1,21 @@
 QWidget
 {
-    background-color: rgb(180, 180, 180);
+    background-color: #f7f3f7;
     border-bottom: none;
 }
 
 QPlainTextEdit
 {
-  background: rgb(56, 56, 56);
-  color: white;
+  background: #fff;
+  color: #505050;
   padding-left: 10px;
   border: none;
 }
 #fileViewTreeBox
 {
-  background: rgb(38, 38, 38);
+  background: #FFFAFA;
   border-right: 1px solid rgb(62, 62, 62);
-  color: white;
+  color: #505050;
 }
 
 QTabWidget::pane {
@@ -28,9 +28,8 @@ QTabBar::tab {
   border-radius: 2px;
 }
 QTabBar::tab:selected {
-  color: rgb(5, 5, 5);
-  background: rgb(190, 190, 190);
-  border: 1px solid rgb(130, 130, 130);
+  border-bottom: 2px solid #99A6BC;
+  padding-bottom: 3px;
 }
 QTabBar::tab::close-button {
   position: relative;

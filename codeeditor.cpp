@@ -9,7 +9,7 @@
 CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
     lineNumberArea = new LineNumberArea(this);
-    syntaxHighlighter = new SyntaxHighlighter(this->document());
+    syntaxHighlighter = new SyntaxHighlighter(document()); // <<<< !!! ---- this is causing the problems
 
     connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
     connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLineNumberArea(QRect,int)));
@@ -19,9 +19,15 @@ CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
     highlightCurrentLine();
 }
 
+void CodeEditor::load(AssetManager *am)
+{
+    assetManager = am;
+}
+
 bool CodeEditor::loadFile(const QString &fileString)
 {
     clear();
+
     // load file
     QFile file(fileString);
     // check if file exists
@@ -29,11 +35,13 @@ bool CodeEditor::loadFile(const QString &fileString)
     {
         // check if file is readable
         if(!file.open(QIODevice::ReadOnly)) {
+            qDebug() << "file not readable: " << fileString;
             QMessageBox::information(0, "error", file.errorString());
             return false;
         }
     } else
     {
+        qDebug() << "file does not exist: " << fileString;
         QMessageBox::information(0, "Error", file.errorString());
         return false;
     }
@@ -41,6 +49,7 @@ bool CodeEditor::loadFile(const QString &fileString)
     if(currentFile == NULL)
         delete currentFile;
     currentFile = new QFileInfo(file);
+    syntaxHighlighter->load(assetManager, currentFile->completeSuffix());
 
     // read line by line
     while(!in.atEnd()) {
@@ -48,7 +57,8 @@ bool CodeEditor::loadFile(const QString &fileString)
         appendPlainText(line);
     }
     // close file (ALWAYS)
-    file.close();
+    file.close(); 
+
     return true;
 }
 
@@ -98,7 +108,7 @@ void CodeEditor::resizeEvent(QResizeEvent *e)
 {
     QPlainTextEdit::resizeEvent(e);
     QRect cr = contentsRect();
-    lineNumberArea->setGeometry(QRect(cr.left()-6, cr.top()-1, lineNumberAreaWidth(), cr.height()));
+    lineNumberArea->setGeometry(QRect(cr.left()-10, cr.top()-1, lineNumberAreaWidth()+10, cr.height()));
 }
 
 void CodeEditor::highlightCurrentLine()
@@ -108,7 +118,7 @@ void CodeEditor::highlightCurrentLine()
     if (!isReadOnly()) {
         QTextEdit::ExtraSelection selection;
 
-        QColor lineColor = QColor(Qt::darkGray).lighter(46);
+        QColor lineColor = QColor("#f7f3f7");
 
         selection.format.setBackground(lineColor);
         selection.format.setProperty(QTextFormat::FullWidthSelection, true);
@@ -125,7 +135,7 @@ void CodeEditor::highlightCurrentLine()
 void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
 {
     QPainter painter(lineNumberArea);
-    painter.fillRect(event->rect(), QColor(Qt::darkGray).lighter(50));
+    painter.fillRect(event->rect(), QColor("#f7f3f7"));
 
 
     QTextBlock block = firstVisibleBlock();
@@ -136,7 +146,7 @@ void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
     while (block.isValid() && top <= event->rect().bottom()) {
         if (block.isVisible() && bottom >= event->rect().top()) {
             QString number = QString::number(blockNumber + 1);
-            painter.setPen(Qt::lightGray);
+            painter.setPen(QColor("#BBB7BB"));
             painter.drawText(0, top, lineNumberArea->width(), fontMetrics().height(),
                              Qt::AlignCenter, number);
         }
@@ -152,4 +162,5 @@ CodeEditor::~CodeEditor()
 {
     delete currentFile;
     delete syntaxHighlighter;
+    delete lineNumberArea;
 }

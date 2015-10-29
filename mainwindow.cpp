@@ -38,11 +38,13 @@ void MainWindow::load(AssetManager *inAssetManager)
     textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/mainwindow.cpp");
     textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/assetmanager.cpp");
     textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/codeeditor.h");
+    textEditTab->addCodeTab("/Users/jacobplaster/Documents/simic_website/index.html");
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete textEditTab;
 }
 
 // Resize the code text area and fileListBox to fit the screen responsively

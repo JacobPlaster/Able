@@ -6,6 +6,7 @@
 #include <QFileInfo>
 
 #include "syntaxhighlighter.h"
+#include "assetmanager.h"
 
 class QPaintEvent;
 class QResizeEvent;
@@ -27,6 +28,7 @@ public:
     int lineNumberAreaWidth();
     bool loadFile(const QString &);
     QFileInfo * getCurrentFileInfo() const;
+    void load(AssetManager *am);
 
 protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
@@ -40,6 +42,7 @@ private:
     QWidget *lineNumberArea;
     QFileInfo *currentFile;
     SyntaxHighlighter *syntaxHighlighter;
+    AssetManager *assetManager;
 };
 
 

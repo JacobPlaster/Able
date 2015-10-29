@@ -23,9 +23,12 @@ bool TextEditTabWidget::addCodeTab(const QString &fileString)
 {
     // create new code editor widget
     CodeEditor * newCodeEditor = new CodeEditor();
+    newCodeEditor->load(assetManager);
+
+    // \/ causes asset manager variable to crash
     if(!newCodeEditor->loadFile(fileString))
         return false;
-    newCodeEditor->loadFile(fileString);
+
     newCodeEditor->setTabStopWidth(30);
     newCodeEditor->setWordWrapMode(QTextOption::NoWrap);
     newCodeEditor->setFont(assetManager->getFont("MAIN_CODE_FONT"));

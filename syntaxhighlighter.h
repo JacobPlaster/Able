@@ -2,6 +2,7 @@
 #define SYNTAXHIGHLIGHTER_H
 
 #include <QSyntaxHighlighter>
+#include "assetmanager.h"
 
 class SyntaxHighlighter: public QSyntaxHighlighter
 {
@@ -10,25 +11,13 @@ class SyntaxHighlighter: public QSyntaxHighlighter
        ~SyntaxHighlighter();
 
        void highlightBlock(const QString &text);
+       void load(AssetManager *am, QString lan);
 
     private:
-       struct HighlightingRule
-       {
-           QRegExp pattern;
-           QTextCharFormat format;
-       };
-       QVector<HighlightingRule> highlightingRules;
+       AssetManager *assetManager;
+       SyntaxHighlightingRuleSet ruleSet;
 
-       QRegExp commentStartExpression;
-       QRegExp commentEndExpression;
-
-       QTextCharFormat keywordFormat;
-       QTextCharFormat classFormat;
-       QTextCharFormat numberFormat;
-       QTextCharFormat singleLineCommentFormat;
-       QTextCharFormat multiLineCommentFormat;
-       QTextCharFormat quotationFormat;
-       QTextCharFormat functionFormat;
+       bool languageSet;
 };
 
 #endif // SYNTAXHIGHLIGHTER_H
