@@ -157,8 +157,17 @@ void AssetManager::loadLanguageSupportFile(QTextStream &in)
             // Keyword formats
             if(state==5)
                 sRuleSet.keywordPatterns << line;
-            // class_Format
+            // function_Format
             if(state==6)
+            {
+                qtf.setFontItalic(true);
+                qtf.setForeground(QColor(currentColor));
+                rule.pattern = QRegExp(line);
+                rule.format = qtf;
+                sRuleSet.highlightingRules.append(rule);
+            }
+            // class_Format
+            if(state==7)
             {
                 // also load keyword format once stream has finished
                 qtf.setForeground(QColor(prevColor));
@@ -171,15 +180,6 @@ void AssetManager::loadLanguageSupportFile(QTextStream &in)
                 }
                 // handle class format
                 qtf.setFontWeight(QFont::Bold);
-                qtf.setForeground(QColor(currentColor));
-                rule.pattern = QRegExp(line);
-                rule.format = qtf;
-                sRuleSet.highlightingRules.append(rule);
-            }
-            // function_Format
-            if(state==7)
-            {
-                qtf.setFontItalic(true);
                 qtf.setForeground(QColor(currentColor));
                 rule.pattern = QRegExp(line);
                 rule.format = qtf;
