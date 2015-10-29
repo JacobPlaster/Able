@@ -25,6 +25,7 @@ private:
     Ui::MainWindow *ui;
     void resizeEvent(QResizeEvent* event);
     void loadMenuBar();
+    void runUnitTests();
 
     AssetManager * assetManager;
     CodeEditor * codeEditor;

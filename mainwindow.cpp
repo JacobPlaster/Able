@@ -8,9 +8,13 @@
 #include <QFontDatabase>
 #include <QHBoxLayout>
 #include <QFileDialog>
+#include <QDateTime>
 
 #include <string>
 #include <sstream>
+#include <iostream>
+#include <fstream>
+using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -61,9 +65,7 @@ void MainWindow::load(AssetManager *inAssetManager)
     textEditTab->setTabsClosable(true);
     ui->editArea->setWidget(textEditTab);
 
-    textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/mainwindow.cpp");
-    textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/codeeditor.h");
-    textEditTab->addCodeTab("/Users/jacobplaster/Documents/simic_website_2/index.html");
+    runUnitTests();
 }
 
 MainWindow::~MainWindow()
@@ -78,6 +80,54 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     ui->fileViewTreeBox->resize(ui->fileViewTreeBox->width(), ui->centralWidget->height()+1);
     textEditTab->resize((ui->centralWidget->width() - ui->fileViewTreeBox->width()) +1, ui->centralWidget->height());
     ui->editArea->resize((ui->centralWidget->width() - ui->fileViewTreeBox->width()) +1, ui->centralWidget->height());
+}
+
+
+void MainWindow::runUnitTests()
+{
+    // create timer
+    QElapsedTimer timer;
+    // current dat/time for saving
+    QDateTime now = QDateTime::currentDateTime();
+    timer.start();
+    // open file
+    ofstream testFile;
+    // get current time to print ot file name
+    string date_time_now = date_time_now = now.toString("dd.MM.yyyy h:m:s ap").toStdString();
+    date_time_now = "/Users/jacobplaster/Documents/Able/libs/tests/speedTests/speedTest-(" + date_time_now + ").txt";
+    testFile.open (date_time_now.c_str());
+
+    // load initial tab so all resources get initiated
+    textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/assetmanager.cpp");
+
+    testFile << date_time_now << "\n";
+    testFile << "------ SPEED TESTING FOR LOADING FUNCTIONS ------\n\n\n";
+
+    testFile << "cpp tests:";
+    testFile << "addCodeTab(\"/Users/jacobplaster/Documents/Able/mainwindow.cpp\")\n\n\n";
+    timer.restart();
+    textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/mainwindow.cpp");
+    testFile << "Time to complete task: " << timer.elapsed() << " milliseconds";
+    testFile << "\n\n\n";
+
+    testFile << "html tests:";
+    testFile << "addCodeTab(\"/Users/jacobplaster/Documents/simic_website_2/index.html\")\n\n\n";
+    timer.restart();
+    textEditTab->addCodeTab("/Users/jacobplaster/Documents/simic_website_2/index.html");
+    testFile << "Time to complete task: " << timer.elapsed() << " milliseconds";
+    testFile << "\n\n\n";
+
+    testFile << "Plain text tests:";
+    testFile << "addCodeTab(\"/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/HarryPotter(xlarge).txt\")\n\n\n";
+    timer.restart();
+    textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/HarryPotter(xlarge).txt");
+    testFile << "Time to complete task: " << timer.elapsed() << " milliseconds";
+    testFile << "\n\n\n";
+
+    testFile.close();
+
+    // open newly created file
+    textEditTab->addCodeTab(date_time_now.c_str());
 }
 
 
