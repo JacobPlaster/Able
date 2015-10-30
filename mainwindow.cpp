@@ -65,7 +65,9 @@ void MainWindow::load(AssetManager *inAssetManager)
     textEditTab->setTabsClosable(true);
     ui->editArea->setWidget(textEditTab);
 
-    runUnitTests();
+    textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/bootstrap.css");
+    textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/team.html");
+    //runUnitTests();
 }
 
 MainWindow::~MainWindow()
@@ -122,6 +124,7 @@ void MainWindow::runUnitTests()
     }
     testFile.close();
 
+    textEditTab->clear();
     // open newly created file
     textEditTab->addCodeTab(date_time_now.c_str());
 }
