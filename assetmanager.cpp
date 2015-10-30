@@ -107,6 +107,7 @@ void AssetManager::loadLanguageSupportFile(QTextStream &in)
     SyntaxHighlightingRuleSet *sRuleSet = new SyntaxHighlightingRuleSet();
     QString currentColor;
     QString prevColor;
+    QString prevPrevColor;
 
     // read line by line
     while(!in.atEnd()) {
@@ -124,6 +125,7 @@ void AssetManager::loadLanguageSupportFile(QTextStream &in)
             // sets the color for the next expressions
             if(line[0] == '#')
             {
+                prevPrevColor = prevColor;
                 prevColor = currentColor;
                 currentColor = line;
             }
@@ -177,7 +179,7 @@ void AssetManager::loadLanguageSupportFile(QTextStream &in)
             if(state==7)
             {
                 // also load keyword format once stream has finished
-                qtf.setForeground(QColor(prevColor));
+                qtf.setForeground(QColor(prevPrevColor));
                 qtf.setFontWeight(QFont::Bold);
                 // load all as seperate expressions
                 foreach (const QString &pattern, sRuleSet->keywordPatterns) {

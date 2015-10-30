@@ -6,7 +6,21 @@
 
 TextEditTabWidget::TextEditTabWidget(QWidget *parent) : QTabWidget(parent)
 {
+    connect(this, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)));
+}
 
+void TextEditTabWidget::closeTab(int tabIndex)
+{
+    if (tabIndex == -1)
+            return;
+
+    // Removes but, the page widget itself is not deleted.
+    QWidget* tab = this->widget(tabIndex);
+    this->removeTab(index);
+
+    // delete page
+    delete(tab);
+    tab = NULL;
 }
 
 void TextEditTabWidget::load(AssetManager *inAssetManager)

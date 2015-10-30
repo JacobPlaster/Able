@@ -26,6 +26,10 @@ private:
 
 protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
+
+private slots:
+    void closeTab(int);
+
 };
 
 #endif
