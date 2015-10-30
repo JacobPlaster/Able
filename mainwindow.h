@@ -6,6 +6,7 @@
 #include "assetmanager.h"
 #include "codeeditor.h"
 #include "textedittabwidget.h"
+#include "Fileviewwidget.h"
 
 
 namespace Ui {
@@ -30,6 +31,8 @@ private:
     AssetManager * assetManager;
     CodeEditor * codeEditor;
     TextEditTabWidget * textEditTab;
+    FileViewWidget * fileView;
+    int fileViewWidth;
 
     QMenuBar* menu_bar;
 

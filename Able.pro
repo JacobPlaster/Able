@@ -17,13 +17,15 @@ SOURCES += main.cpp\
     codeeditor.cpp \
     textedittabwidget.cpp \
     syntaxhighlighter.cpp \
-    syntaxhighlightingruleset.cpp
+    syntaxhighlightingruleset.cpp \
+    fileviewwidget.cpp
 
 HEADERS  += mainwindow.h \
     assetmanager.h \
     codeeditor.h \
     textedittabwidget.h \
     syntaxhighlighter.h \
-    syntaxhighlightingruleset.h
+    syntaxhighlightingruleset.h \
+    Fileviewwidget.h
 
 FORMS    += mainwindow.ui

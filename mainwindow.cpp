@@ -22,16 +22,16 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     textEditTab = new TextEditTabWidget();
-
-    menu_bar = new QMenuBar(this);
-    menu_bar->setNativeMenuBar(true);
+    fileView = new FileViewWidget();
     loadMenuBar();
 }
 
 void MainWindow::loadMenuBar()
 {
-    QMenu *oneMenu = new QMenu("File");
+    menu_bar = new QMenuBar(this);
+    menu_bar->setNativeMenuBar(true);
 
+    QMenu *oneMenu = new QMenu("File");
     oneMenu->addAction("New");
     QAction *fileAction = oneMenu->addAction("Open File");
     connect(fileAction, SIGNAL(triggered()), this, SLOT(loadFile()));
@@ -55,15 +55,15 @@ void MainWindow::load(AssetManager *inAssetManager)
     assetManager = inAssetManager;
     textEditTab->load(assetManager);
 
-    ui->fileViewTreeBox->setAttribute(Qt::WA_MacShowFocusRect, 0);
-    ui->fileViewTreeBox->setFont(QFont("Times", 20, QFont::Bold));
-
     // Create code edit tab area
     textEditTab->setTabShape(QTabWidget::Triangular);
     textEditTab->setDocumentMode(false);
     textEditTab->setMovable(true);
     textEditTab->setTabsClosable(true);
     ui->editArea->setWidget(textEditTab);
+
+    ui->projectViewArea->setWidget(fileView);
+    fileViewWidth = ui->projectViewArea->width();
 
     textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/bootstrap.css");
     textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/team.html");
@@ -74,14 +74,33 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete textEditTab;
+    textEditTab = NULL;
+    delete fileView;
+    fileView = NULL;
 }
 
 // Resize the code text area and fileListBox to fit the screen responsively
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
-    ui->fileViewTreeBox->resize(ui->fileViewTreeBox->width(), ui->centralWidget->height()+1);
-    textEditTab->resize((ui->centralWidget->width() - ui->fileViewTreeBox->width()) +1, ui->centralWidget->height());
-    ui->editArea->resize((ui->centralWidget->width() - ui->fileViewTreeBox->width()) +1, ui->centralWidget->height());
+    // project loaded into file view
+    if(fileView->isProjectLoaded())
+    {
+        ui->projectViewArea->resize(fileViewWidth, ui->centralWidget->height());
+        fileView->resize(ui->projectViewArea->width(), ui->projectViewArea->height());
+
+        ui->editArea->move(ui->projectViewArea->width(), 0);
+        ui->editArea->resize((ui->centralWidget->width() - ui->projectViewArea->width()) +1, ui->centralWidget->height());
+        textEditTab->resize(ui->editArea->width(), ui->centralWidget->height());
+
+        fileViewWidth = ui->projectViewArea->width();
+    } else
+    {
+        ui->projectViewArea->resize(0, ui->centralWidget->height());
+        fileView->resize(0, ui->projectViewArea->height());
+        ui->editArea->move(0, 0);
+        ui->editArea->resize(ui->centralWidget->width(), ui->centralWidget->height());
+        textEditTab->resize(ui->editArea->width(), ui->centralWidget->height());
+    }
 }
 
 
@@ -95,7 +114,7 @@ void MainWindow::runUnitTests()
     // open file
     ofstream testFile;
     // get current time to print ot file name
-    string date_time_now = date_time_now = now.toString("dd.MM.yyyy h:m:s ap").toStdString();
+    string date_time_now = now.toString("dd.MM.yyyy h:m:s ap").toStdString();
     date_time_now = "/Users/jacobplaster/Documents/Able/libs/tests/speedTests/speedTest-(" + date_time_now + ").txt";
     testFile.open (date_time_now.c_str());
 
