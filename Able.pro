@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     textedittabwidget.cpp \
     syntaxhighlighter.cpp \
     syntaxhighlightingruleset.cpp \
-    fileviewwidget.cpp
+    fileviewwidget.cpp \
+    treefileitem.cpp
 
 HEADERS  += mainwindow.h \
     assetmanager.h \
@@ -26,6 +27,7 @@ HEADERS  += mainwindow.h \
     textedittabwidget.h \
     syntaxhighlighter.h \
     syntaxhighlightingruleset.h \
-    Fileviewwidget.h
+    fileviewwidget.h \
+    treefileitem.h
 
 FORMS    += mainwindow.ui

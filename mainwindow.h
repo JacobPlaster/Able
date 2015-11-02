@@ -6,7 +6,7 @@
 #include "assetmanager.h"
 #include "codeeditor.h"
 #include "textedittabwidget.h"
-#include "Fileviewwidget.h"
+#include "fileviewwidget.h"
 
 
 namespace Ui {
@@ -27,6 +27,7 @@ private:
     void resizeEvent(QResizeEvent* event);
     void loadMenuBar();
     void runUnitTests();
+    void resizeWithFileView();
 
     AssetManager * assetManager;
     CodeEditor * codeEditor;
@@ -41,6 +42,7 @@ private:
 
 private slots:
     void loadFile();
+    void loadFolder();
 };
 
 #endif // MAINWINDOW_H

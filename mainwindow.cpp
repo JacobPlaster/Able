@@ -32,14 +32,27 @@ void MainWindow::loadMenuBar()
     menu_bar->setNativeMenuBar(true);
 
     QMenu *oneMenu = new QMenu("File");
-    oneMenu->addAction("New");
-    QAction *fileAction = oneMenu->addAction("Open File");
-    connect(fileAction, SIGNAL(triggered()), this, SLOT(loadFile()));
+    oneMenu->addAction("New File");
+    QAction *fileOpenAction = oneMenu->addAction("Open File");
+    connect(fileOpenAction, SIGNAL(triggered()), this, SLOT(loadFile()));
+    QAction *folderOpenAction = oneMenu->addAction("Open Folder");
+    connect(folderOpenAction, SIGNAL(triggered()), this, SLOT(loadFolder()));
 
     oneMenu->addAction("Save");
     oneMenu->addAction("Save as");
 
     menu_bar->addAction(oneMenu->menuAction());
+}
+
+void MainWindow::loadFolder()
+{
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
+                                                 "/home",
+                                                 QFileDialog::ShowDirsOnly
+                                                 | QFileDialog::DontResolveSymlinks);
+    fileView->loadFolder(dir);
+    // resize to fit with folder view
+    resizeWithFileView();
 }
 
 void MainWindow::loadFile()
@@ -54,6 +67,7 @@ void MainWindow::load(AssetManager *inAssetManager)
     // load static files
     assetManager = inAssetManager;
     textEditTab->load(assetManager);
+    fileView->load(assetManager, textEditTab);
 
     // Create code edit tab area
     textEditTab->setTabShape(QTabWidget::Triangular);
@@ -85,14 +99,7 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     // project loaded into file view
     if(fileView->isProjectLoaded())
     {
-        ui->projectViewArea->resize(fileViewWidth, ui->centralWidget->height());
-        fileView->resize(ui->projectViewArea->width(), ui->projectViewArea->height());
-
-        ui->editArea->move(ui->projectViewArea->width(), 0);
-        ui->editArea->resize((ui->centralWidget->width() - ui->projectViewArea->width()) +1, ui->centralWidget->height());
-        textEditTab->resize(ui->editArea->width(), ui->centralWidget->height());
-
-        fileViewWidth = ui->projectViewArea->width();
+        resizeWithFileView();
     } else
     {
         ui->projectViewArea->resize(0, ui->centralWidget->height());
@@ -148,6 +155,16 @@ void MainWindow::runUnitTests()
     textEditTab->addCodeTab(date_time_now.c_str());
 }
 
+void MainWindow::resizeWithFileView()
+{
+    ui->projectViewArea->resize(fileViewWidth, ui->centralWidget->height());
+    fileView->resize(ui->projectViewArea->width(), ui->projectViewArea->height());
+    ui->editArea->move(ui->projectViewArea->width(), 0);
+    ui->editArea->resize((ui->centralWidget->width() - ui->projectViewArea->width()) +1, ui->centralWidget->height());
+    textEditTab->resize(ui->editArea->width(), ui->centralWidget->height());
+
+     fileViewWidth = ui->projectViewArea->width();
+}
 
 /*
     QMessageBox Msgbox;
