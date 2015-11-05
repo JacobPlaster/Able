@@ -135,12 +135,18 @@ void MainWindow::runUnitTests()
     date_time_now = "/Users/jacobplaster/Documents/Able/libs/tests/speedTests/speedTest-(" + date_time_now + ").txt";
     testFile.open (date_time_now.c_str());
 
+    QStringList dirsToTest;
+    dirsToTest << "/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/Zompage-Game";
+    dirsToTest << "/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/Nether-Game";
+    dirsToTest << "/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/ACW-08338-Student";
+
     // load initial tab so all resources get initiated
     textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/mainwindow.cpp");
 
     testFile << date_time_now << "\n";
-    testFile << "------ SPEED TESTING FOR LOADING FUNCTIONS ------\n\n\n";
 
+
+    testFile << "------ SPEED TESTING FOR LOADING FUNCTIONS ------\n\n\n";
     // Run tests on all files in this dir
     QDir lsDir("/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets");
     QFileInfoList allLs = lsDir.entryInfoList();
@@ -148,7 +154,7 @@ void MainWindow::runUnitTests()
         // if is a file and is a cfg file
         if (!fileI.isDir())
         {
-            qDebug() << fileI.absoluteFilePath();
+            qDebug() << "Loading: " << fileI.absoluteFilePath();
             testFile << fileI.completeSuffix().toStdString() << " test: \n";
             testFile << "File: " << fileI.absoluteFilePath().toStdString() << "\n";
             timer.restart();
@@ -158,6 +164,20 @@ void MainWindow::runUnitTests()
             testFile << "\n\n\n";
         }
     }
+
+    testFile << "------ SPEED TESTING FOR LOADING FOLDERS ------\n\n\n";
+    foreach(QFileInfo fileI, dirsToTest)
+    {
+        qDebug() << "Loading: " << fileI.absoluteFilePath();
+        testFile << fileI.fileName().toStdString() << " test: \n";
+        testFile << "File: " << fileI.absoluteFilePath().toStdString() << "\n";
+        timer.restart();
+        fileView->loadFolder(fileI.absoluteFilePath());
+        testFile << "Time to load directory: " << timer.elapsed() << " milliseconds \n";
+        testFile << "Folder size: " << fileI.size() << "bytes";
+        testFile << "\n\n\n";
+    }
+
     testFile.flush();
     testFile.close();
 
