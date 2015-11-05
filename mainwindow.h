@@ -43,6 +43,7 @@ private:
 private slots:
     void loadFile();
     void loadFolder();
+    void saveFile();
 };
 
 #endif // MAINWINDOW_H

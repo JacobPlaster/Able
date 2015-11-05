@@ -13,6 +13,11 @@ void SyntaxHighlighter::load(AssetManager *am, QString lan)
         languageSet = true;
 }
 
+SyntaxHighlightingRuleSet * SyntaxHighlighter::getRuleSet() const
+{
+    return ruleSet;
+}
+
 void SyntaxHighlighter::highlightBlock(const QString &text)
 {
     if(languageSet)

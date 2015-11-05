@@ -9,6 +9,11 @@ TextEditTabWidget::TextEditTabWidget(QWidget *parent) : QTabWidget(parent)
     connect(this, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)));
 }
 
+TextEditTabWidget::~TextEditTabWidget()
+{
+
+}
+
 void TextEditTabWidget::closeTab(int tabIndex)
 {
     if (tabIndex == -1)
@@ -23,6 +28,23 @@ void TextEditTabWidget::closeTab(int tabIndex)
     tab = NULL;
 }
 
+void TextEditTabWidget::saveCurrentEditor()
+{
+    int selectedIndex = this->currentIndex();
+    getEditorAtIndex(selectedIndex)->save();
+}
+
+CodeEditor * TextEditTabWidget::getEditorAtIndex(int i) const
+{
+    QList<CodeEditor *> allEditors = this->findChildren<CodeEditor *>();
+    return allEditors[i];
+}
+
+QList<CodeEditor *> TextEditTabWidget::getAllEditors() const
+{
+    return this->findChildren<CodeEditor *>();
+}
+
 void TextEditTabWidget::load(AssetManager *inAssetManager)
 {
     assetManager = inAssetManager;
@@ -35,6 +57,18 @@ void TextEditTabWidget::resizeEvent(QResizeEvent *e)
 
 bool TextEditTabWidget::addCodeTab(const QString &fileString)
 {
+    // check if code tab exists
+    QList<CodeEditor *> allEditors = this->findChildren<CodeEditor *>();
+    for(int ie = 0; ie < allEditors.count(); ie++)
+    {
+        // if file already open then set it to focus
+        if(allEditors[ie]->getCurrentFileInfo()->absoluteFilePath() == fileString)
+        {
+            this->setCurrentIndex(this->indexOf(allEditors[ie]));
+            return false;
+        }
+    }
+
     // create new code editor widget
     CodeEditor * newCodeEditor = new CodeEditor();
     newCodeEditor->load(assetManager);
@@ -53,9 +87,9 @@ bool TextEditTabWidget::addCodeTab(const QString &fileString)
     newCodeEditor->setFont(assetManager->getFont("MAIN_CODE_FONT"));
 
     // add new widget
-    addTab(newCodeEditor, newCodeEditor->getCurrentFileInfo()->fileName());
+    insertTab(0, newCodeEditor, newCodeEditor->getCurrentFileInfo()->fileName());
     // set focus to newly created tab
-    this->setCurrentIndex(this->count()-1);
+    this->setCurrentIndex(0);
 
     return true;
 }

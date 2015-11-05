@@ -18,8 +18,12 @@ class TextEditTabWidget : public QTabWidget
 
 public:
     TextEditTabWidget(QWidget *parent = 0);
+    ~TextEditTabWidget();
     bool addCodeTab(const QString &);
     void load(AssetManager *inAssetManager);
+    void saveCurrentEditor();
+    CodeEditor * getEditorAtIndex(int i) const;
+    QList<CodeEditor *> getAllEditors() const;
 
 private:
     AssetManager *assetManager;

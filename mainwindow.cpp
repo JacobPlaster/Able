@@ -38,10 +38,17 @@ void MainWindow::loadMenuBar()
     QAction *folderOpenAction = oneMenu->addAction("Open Folder");
     connect(folderOpenAction, SIGNAL(triggered()), this, SLOT(loadFolder()));
 
-    oneMenu->addAction("Save");
+    QAction *fileSaveAction = oneMenu->addAction("Save");
+    connect(fileSaveAction, SIGNAL(triggered()), this, SLOT(saveFile()));
     oneMenu->addAction("Save as");
 
     menu_bar->addAction(oneMenu->menuAction());
+}
+
+void MainWindow::saveFile()
+{
+    // saves the current open editor to its filepath
+    textEditTab->saveCurrentEditor();
 }
 
 void MainWindow::loadFolder()
@@ -50,16 +57,20 @@ void MainWindow::loadFolder()
                                                  "/home",
                                                  QFileDialog::ShowDirsOnly
                                                  | QFileDialog::DontResolveSymlinks);
-    fileView->loadFolder(dir);
-    // resize to fit with folder view
-    resizeWithFileView();
+    if(dir != "")
+    {
+        fileView->loadFolder(dir);
+        // resize to fit with folder view
+        resizeWithFileView();
+    }
 }
 
 void MainWindow::loadFile()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
                                                     "/home/documents");
-    textEditTab->addCodeTab(fileName);
+   if(fileName != "")
+        textEditTab->addCodeTab(fileName);
 }
 
 void MainWindow::load(AssetManager *inAssetManager)
@@ -79,8 +90,7 @@ void MainWindow::load(AssetManager *inAssetManager)
     ui->projectViewArea->setWidget(fileView);
     fileViewWidth = ui->projectViewArea->width();
 
-    textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/bootstrap.css");
-    textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/team.html");
+    fileView->loadFolder("/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets");
     //runUnitTests();
 }
 
@@ -148,6 +158,7 @@ void MainWindow::runUnitTests()
             testFile << "\n\n\n";
         }
     }
+    testFile.flush();
     testFile.close();
 
     textEditTab->clear();

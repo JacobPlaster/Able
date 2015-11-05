@@ -87,7 +87,7 @@ void AssetManager::loadAllLanguageSupport()
    }
 }
 
-SyntaxHighlightingRuleSet * AssetManager::getLanguageSupportRuleSet(QString &language)
+SyntaxHighlightingRuleSet * AssetManager::getLanguageSupportRuleSet(QString &language) const
 {
     for (int i=0; i < syntaxHighlightingRules.length(); i++)
     {
@@ -165,7 +165,12 @@ void AssetManager::loadLanguageSupportFile(QTextStream &in)
             }
             // Keyword formats
             if(state==5)
+            {
+                // add line to autocompleter
+                sRuleSet->constantKeywords << line;
+                line = "\\b" + line + "\\b";
                 sRuleSet->keywordPatterns << line;
+            }
             // function_Format
             if(state==6)
             {

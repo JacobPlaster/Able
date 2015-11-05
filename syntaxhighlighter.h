@@ -12,6 +12,7 @@ class SyntaxHighlighter: public QSyntaxHighlighter
 
        void highlightBlock(const QString &text);
        void load(AssetManager *am, QString lan);
+       SyntaxHighlightingRuleSet * getRuleSet() const;
 
     private:
        AssetManager *assetManager;

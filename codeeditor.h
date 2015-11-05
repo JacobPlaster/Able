@@ -4,6 +4,8 @@
 #include <QPlainTextEdit>
 #include <QObject>
 #include <QFileInfo>
+#include <QCompleter>
+#include <QStringListModel>
 
 #include "syntaxhighlighter.h"
 #include "assetmanager.h"
@@ -29,20 +31,30 @@ public:
     bool loadFile(const QString &);
     QFileInfo * getCurrentFileInfo() const;
     void load(AssetManager *am);
+    void save();
+    void setAutoCompleter(QCompleter *inCompleter);
+    QCompleter * getCompleter() const;
+    QString textUnderCursor() const;
+    void setAutoCompleteModel(QStringList wordlist);
 
 protected:
+    void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
+    void focusInEvent(QFocusEvent *e) Q_DECL_OVERRIDE;
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 
 private slots:
     void updateLineNumberAreaWidth(int newBlockCount);
     void highlightCurrentLine();
     void updateLineNumberArea(const QRect &, int);
+    void insertCompletion(const QString &completion);
 
 private:
     QWidget *lineNumberArea;
     QFileInfo *currentFile;
     SyntaxHighlighter *syntaxHighlighter;
     AssetManager *assetManager;
+    QCompleter *completer;
+    QStringListModel * autoCompleteModel;
 };
 
 
