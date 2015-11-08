@@ -11,13 +11,16 @@ QPlainTextEdit
   padding-left: 10px;
   border: none;
 }
-#fileViewTreeBox
+FileViewWidget
 {
   background: #FFFAFA;
-  border-right: 1px solid rgb(62, 62, 62);
+  border: none;
   color: #505050;
+  padding-top: 5px;
 }
-
+QScrollArea{
+  border: none;
+}
 QTabWidget::pane {
     background-color: red;
 }

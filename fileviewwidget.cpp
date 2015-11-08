@@ -6,6 +6,7 @@
 FileViewWidget::FileViewWidget(QWidget *parent) : QTreeWidget(parent)
 {
     projectLoaded = false;
+    this->setHeaderHidden(true);
 
     connect(this, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(loadToEditor(const QModelIndex&)));
 }
