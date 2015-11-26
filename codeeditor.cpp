@@ -207,7 +207,7 @@ int CodeEditor::lineNumberAreaWidth()
         ++digits;
     }
 
-    int space = 20 + fontMetrics().width(QLatin1Char('9')) * digits;
+    int space = 10 + fontMetrics().width(QLatin1Char('9')) * digits;
 
     return space;
 }
@@ -265,7 +265,7 @@ void CodeEditor::highlightCurrentLine()
 void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
 {
     QPainter painter(lineNumberArea);
-    painter.fillRect(event->rect(), QColor("#f7f3f7"));
+    painter.fillRect(event->rect(), QColor("#E6E6E6"));
 
 
     QTextBlock block = firstVisibleBlock();
@@ -276,7 +276,7 @@ void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
     while (block.isValid() && top <= event->rect().bottom()) {
         if (block.isVisible() && bottom >= event->rect().top()) {
             QString number = QString::number(blockNumber + 1);
-            painter.setPen(QColor("#BBB7BB"));
+            painter.setPen(QColor("#A7A3A7"));
             painter.drawText(0, top, lineNumberArea->width(), fontMetrics().height(),
                              Qt::AlignCenter, number);
         }
