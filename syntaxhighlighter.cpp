@@ -9,6 +9,7 @@ void SyntaxHighlighter::load(AssetManager *am, QString lan)
 {
     assetManager = am;
     ruleSet = am->getLanguageSupportRuleSet(lan);
+    autoCompleteSuggestions += ruleSet->getConstantKeywords();
     if(ruleSet != NULL)
         languageSet = true;
 }
@@ -22,6 +23,10 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
 {
     if(languageSet)
     {
+        // search line for any autocomplete suggestions
+        autoCompleteSuggestions += searchInputForAutocompleteRules(text);
+        qDebug() << autoCompleteSuggestions;
+
         foreach (const SyntaxHighlightingRuleSet::HighlightingRule rule, ruleSet->highlightingRules) {
             QRegExp expression(rule.pattern);
             int index = expression.indexIn(text);
@@ -52,6 +57,19 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
         }
     }
 }
+
+ QStringList SyntaxHighlighter::searchInputForAutocompleteRules(const QString &text)
+ {
+    QStringList suggestions;
+    // find a new rule and add it (make sure it doesnt already exist)
+    //suggestions << "TESTSTSTSTSSTSTSTSSTST";
+    return suggestions;
+ }
+
+ QStringList & SyntaxHighlighter::getAutoCompleteRules()
+ {
+     return autoCompleteSuggestions;
+ }
 
 SyntaxHighlighter::~SyntaxHighlighter()
 {

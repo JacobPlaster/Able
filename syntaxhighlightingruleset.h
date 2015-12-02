@@ -8,7 +8,7 @@ class SyntaxHighlightingRuleSet
 public:
     SyntaxHighlightingRuleSet();
     ~SyntaxHighlightingRuleSet();
-    QStringList getConstantKeywords();
+    QStringList & getConstantKeywords();
 
     struct HighlightingRule
     {
@@ -23,6 +23,8 @@ public:
 
     QRegExp commentStartExpression;
     QRegExp commentEndExpression;
+
+    QRegExp autocorrectFormat;
 
     QTextCharFormat multiLineCommentFormat;
 };

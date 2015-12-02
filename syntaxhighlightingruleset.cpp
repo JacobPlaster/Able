@@ -5,7 +5,7 @@ SyntaxHighlightingRuleSet::SyntaxHighlightingRuleSet()
 
 }
 
-QStringList SyntaxHighlightingRuleSet::getConstantKeywords()
+QStringList & SyntaxHighlightingRuleSet::getConstantKeywords()
 {
     return constantKeywords;
 }

@@ -229,6 +229,10 @@ void AssetManager::loadLanguageSupportFile(QTextStream &in)
                 rule.format = qtfq;
                 sRuleSet->highlightingRules.append(rule);
             }
+            if(state==12)
+            {
+                sRuleSet->autocorrectFormat = QRegExp(line);
+            }
         }
     }
     // append parsed object file

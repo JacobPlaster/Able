@@ -4,7 +4,7 @@ from Modules.ConsoleOutput import ConsoleOutput
 from sklearn.metrics import accuracy_score
 import numpy as np
 
-testingParaMacbookBlog = ['The', '12-inch', 'Retina', 'MacBook', 'is', 'Apple', "'", 's',
+testingParaMacbookBlog= ['The', '12-inch', 'Retina', 'MacBook', 'is', 'Apple', "'", 's',
  'latest', 'and', 'greatest', 'notebook', ',', 'and', 'will', 'very', 'likely',
   'replace', 'the', 'MacBook', 'Air', 'entirely', 'once', 'Apple', 'is', 'able',
    'to', 'bring', 'its', 'costs', 'down', 'enough', ',', 'though', 'this', 'may',

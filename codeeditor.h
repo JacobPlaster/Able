@@ -35,7 +35,7 @@ public:
     void setAutoCompleter(QCompleter *inCompleter);
     QCompleter * getCompleter() const;
     QString textUnderCursor() const;
-    void setAutoCompleteModel(QStringList wordlist);
+    void setAutoCompleteModel(QStringList &);
 
 protected:
     void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
@@ -44,7 +44,7 @@ protected:
 
 private slots:
     void updateLineNumberAreaWidth(int newBlockCount);
-    void highlightCurrentLine();
+    void highlightAndSearchCurrentLine();
     void updateLineNumberArea(const QRect &, int);
     void insertCompletion(const QString &completion);
 
@@ -55,6 +55,9 @@ private:
     AssetManager *assetManager;
     QCompleter *completer;
     QStringListModel * autoCompleteModel;
+
+    QStringList & loadDynamicAutocompleteSuggestions();
+    QStringList * dynamicAutocompleteSuggestions;
 };
 
 

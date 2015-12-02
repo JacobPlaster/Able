@@ -17,33 +17,52 @@ CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent), completer(0)
 
     connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
     connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLineNumberArea(QRect,int)));
-    connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
+    connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightAndSearchCurrentLine()));
 
     updateLineNumberAreaWidth(0);
-    highlightCurrentLine();
+    highlightAndSearchCurrentLine();
 
     completer = new QCompleter(this);
     completer->setWrapAround(false);
     setAutoCompleter(completer);
 }
 
-void CodeEditor::setAutoCompleteModel(QStringList wordList)
+ QStringList & CodeEditor::loadDynamicAutocompleteSuggestions()
+ {
+     QStringList suggestions;
+     QString text = this->toPlainText();
+     QRegExp exp = syntaxHighlighter->getRuleSet()->autocorrectFormat;
+
+     //suggestions = text.findAllOccurrences(regexp);
+     /*qDebug() << exp.indexIn(text);
+     if(exp.indexIn(text) >= 0)
+     {
+         qDebug() << exp.cap(0);
+     } */
+
+     return suggestions;
+ }
+
+void CodeEditor::setAutoCompleteModel(QStringList  &wordList)
 {
+
     if(autoCompleteModel)
         delete autoCompleteModel;
     autoCompleteModel = new QStringListModel;
+    // update
+    loadDynamicAutocompleteSuggestions();
     autoCompleteModel->setStringList(wordList);
     completer->setModel(autoCompleteModel);
 }
 
 void CodeEditor::setAutoCompleter(QCompleter *inCompleter)
 {
+
     // if already exists
     if (completer)
         QObject::disconnect(completer, 0, this, 0);
 
     completer = inCompleter;
-
     if (!completer)
        return;
 
@@ -52,6 +71,7 @@ void CodeEditor::setAutoCompleter(QCompleter *inCompleter)
     completer->setCompletionMode(QCompleter::PopupCompletion);
     QObject::connect(completer, SIGNAL(activated(QString)),
                     this, SLOT(insertCompletion(QString)));
+
 }
 
 void CodeEditor::focusInEvent(QFocusEvent *e)
@@ -179,7 +199,7 @@ bool CodeEditor::loadFile(const QString &fileString)
 
     syntaxHighlighter->load(assetManager, currentFile->completeSuffix());
     if(syntaxHighlighter->getRuleSet())
-        this->setAutoCompleteModel(syntaxHighlighter->getRuleSet()->getConstantKeywords());
+        this->setAutoCompleteModel(syntaxHighlighter->getAutoCompleteRules());
 
     // read line by line
     while(!in.atEnd()) {
@@ -241,7 +261,7 @@ void CodeEditor::resizeEvent(QResizeEvent *e)
     lineNumberArea->setGeometry(QRect(cr.left()-10, cr.top()-1, lineNumberAreaWidth()+10, cr.height()));
 }
 
-void CodeEditor::highlightCurrentLine()
+void CodeEditor::highlightAndSearchCurrentLine()
 {
     QList<QTextEdit::ExtraSelection> extraSelections;
 
