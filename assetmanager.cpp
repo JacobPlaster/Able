@@ -233,6 +233,10 @@ void AssetManager::loadLanguageSupportFile(QTextStream &in)
             {
                 sRuleSet->autocorrectFormat = QRegExp(line);
             }
+            if(state==13)
+            {
+                sRuleSet->autocorrectTrimFormat = QRegExp(line);
+            }
         }
     }
     // append parsed object file

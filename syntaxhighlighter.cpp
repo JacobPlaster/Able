@@ -25,7 +25,6 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
     {
         // search line for any autocomplete suggestions
         autoCompleteSuggestions += searchInputForAutocompleteRules(text);
-        qDebug() << autoCompleteSuggestions;
 
         foreach (const SyntaxHighlightingRuleSet::HighlightingRule rule, ruleSet->highlightingRules) {
             QRegExp expression(rule.pattern);
@@ -61,8 +60,23 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
  QStringList SyntaxHighlighter::searchInputForAutocompleteRules(const QString &text)
  {
     QStringList suggestions;
-    // find a new rule and add it (make sure it doesnt already exist)
-    //suggestions << "TESTSTSTSTSSTSTSTSSTST";
+
+    QRegExp rx(ruleSet->autocorrectFormat);
+    QRegExp rxTrimmer(ruleSet->autocorrectTrimFormat);
+
+    int pos = rx.indexIn(text);
+    if(pos != -1)
+    {
+        QStringList suggestionsUnTrimmed = rx.capturedTexts();
+        for(int i = 0; i < suggestionsUnTrimmed.length(); i++)
+        {
+            int pos2 = rxTrimmer.indexIn(suggestionsUnTrimmed[i]);
+            if(pos2 != -1 && !autoCompleteSuggestions.contains(rxTrimmer.capturedTexts()[0]))
+                suggestions << rxTrimmer.capturedTexts()[0];
+
+            //qDebug() << suggestionsUnTrimmed[i];
+        }
+    }
     return suggestions;
  }
 

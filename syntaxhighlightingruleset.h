@@ -25,6 +25,7 @@ public:
     QRegExp commentEndExpression;
 
     QRegExp autocorrectFormat;
+    QRegExp autocorrectTrimFormat;
 
     QTextCharFormat multiLineCommentFormat;
 };

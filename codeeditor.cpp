@@ -27,30 +27,11 @@ CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent), completer(0)
     setAutoCompleter(completer);
 }
 
- QStringList & CodeEditor::loadDynamicAutocompleteSuggestions()
- {
-     QStringList suggestions;
-     QString text = this->toPlainText();
-     QRegExp exp = syntaxHighlighter->getRuleSet()->autocorrectFormat;
-
-     //suggestions = text.findAllOccurrences(regexp);
-     /*qDebug() << exp.indexIn(text);
-     if(exp.indexIn(text) >= 0)
-     {
-         qDebug() << exp.cap(0);
-     } */
-
-     return suggestions;
- }
-
 void CodeEditor::setAutoCompleteModel(QStringList  &wordList)
 {
-
     if(autoCompleteModel)
         delete autoCompleteModel;
     autoCompleteModel = new QStringListModel;
-    // update
-    loadDynamicAutocompleteSuggestions();
     autoCompleteModel->setStringList(wordList);
     completer->setModel(autoCompleteModel);
 }
@@ -83,6 +64,10 @@ void CodeEditor::focusInEvent(QFocusEvent *e)
 
 void CodeEditor::keyPressEvent(QKeyEvent *e)
 {
+    // update autocorrect if enter pressed
+    if(e->key() == Qt::Key_Return && !completer->popup()->isVisible())
+       this->setAutoCompleteModel(syntaxHighlighter->getAutoCompleteRules());
+
     if (completer && completer->popup()->isVisible()) {
         // keys that are returned to the codeEditor from the completer
         // we have to do this since the codeEditor is now out of focus
@@ -126,6 +111,7 @@ void CodeEditor::keyPressEvent(QKeyEvent *e)
     QRect cr = cursorRect();
     cr.setWidth(completer->popup()->sizeHintForColumn(0)
                 + completer->popup()->verticalScrollBar()->sizeHint().width());
+
     // open completer window
     completer->complete(cr);
 }

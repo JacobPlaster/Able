@@ -15,6 +15,7 @@ class SyntaxHighlighter: public QSyntaxHighlighter
        SyntaxHighlightingRuleSet * getRuleSet() const;
        QStringList & getAutoCompleteRules();
 
+
     private:
        AssetManager * assetManager;
        SyntaxHighlightingRuleSet *ruleSet;

@@ -56,7 +56,6 @@ private:
     QCompleter *completer;
     QStringListModel * autoCompleteModel;
 
-    QStringList & loadDynamicAutocompleteSuggestions();
     QStringList * dynamicAutocompleteSuggestions;
 };
 
