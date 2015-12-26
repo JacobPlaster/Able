@@ -9,9 +9,11 @@ void SyntaxHighlighter::load(AssetManager *am, QString lan)
 {
     assetManager = am;
     ruleSet = am->getLanguageSupportRuleSet(lan);
-    autoCompleteSuggestions += ruleSet->getConstantKeywords();
     if(ruleSet != NULL)
+    {
         languageSet = true;
+        autoCompleteSuggestions += ruleSet->getConstantKeywords();
+    }
 }
 
 SyntaxHighlightingRuleSet * SyntaxHighlighter::getRuleSet() const

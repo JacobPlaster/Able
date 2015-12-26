@@ -91,7 +91,7 @@ void MainWindow::load(AssetManager *inAssetManager)
     fileViewWidth = ui->projectViewArea->width();
 
     fileView->loadFolder("/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets");
-    //runUnitTests();
+    runUnitTests();
 }
 
 MainWindow::~MainWindow()
