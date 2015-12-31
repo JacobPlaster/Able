@@ -1,0 +1,67 @@
+/Users/jacobplaster/Documents/Able/libs/tests/speedTests/speedTest-(31.12.2015 1:44:21 p.m.).txt
+------ SPEED TESTING FOR LOADING FUNCTIONS ------
+
+
+cpp test: 
+File: /Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/assetmanager.cpp
+Time to load and process: 134 milliseconds 
+File size: 7208bytes
+
+
+css test: 
+File: /Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/bootstrap.css
+Time to load and process: 837 milliseconds 
+File size: 133614bytes
+
+
+js test: 
+File: /Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/bootstrap.js
+Time to load and process: 948 milliseconds 
+File size: 61884bytes
+
+
+txt test: 
+File: /Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/HarryPotter(xlarge).txt
+Time to load and process: 155 milliseconds 
+File size: 56450bytes
+
+
+html test: 
+File: /Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/team.html
+Time to load and process: 103 milliseconds 
+File size: 7372bytes
+
+
+py test: 
+File: /Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/UnitTesting.py
+Time to load and process: 84 milliseconds 
+File size: 10732bytes
+
+
+------ SPEED TESTING FOR LOADING FOLDERS ------
+
+
+Zompage-Game test: 
+File: /Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/Zompage-Game
+Time to load directory: 33 milliseconds 
+Folder size: 340bytes
+
+
+folder3 test: 
+File: /Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/folder3
+Time to load directory: 0 milliseconds 
+Folder size: 204bytes
+
+
+Nether-Game test: 
+File: /Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/Nether-Game
+Time to load directory: 37 milliseconds 
+Folder size: 306bytes
+
+
+ACW-08338-Student test: 
+File: /Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/ACW-08338-Student
+Time to load directory: 0 milliseconds 
+Folder size: 340bytes
+
+

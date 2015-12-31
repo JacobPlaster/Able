@@ -91,7 +91,7 @@ void MainWindow::load(AssetManager *inAssetManager)
     fileViewWidth = ui->projectViewArea->width();
 
     fileView->loadFolder("/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets");
-    runUnitTests();
+    //runUnitTests();
 }
 
 MainWindow::~MainWindow()
@@ -139,6 +139,8 @@ void MainWindow::runUnitTests()
     dirsToTest << "/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/Zompage-Game";
     dirsToTest << "/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/Nether-Game";
     dirsToTest << "/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/ACW-08338-Student";
+    dirsToTest << "/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/folder3";
+    dirsToTest << "/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/folder4";
 
     // load initial tab so all resources get initiated
     textEditTab->addCodeTab("/Users/jacobplaster/Documents/Able/mainwindow.cpp");
