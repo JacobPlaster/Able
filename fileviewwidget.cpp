@@ -49,6 +49,7 @@ void FileViewWidget::loadFolder(const QString &fileString)
     parent->setText(0, fInfo.fileName());
 
     this->addTopLevelItem(parent);
+    numOfItems++;
     attachDir(parent, fileString);
 
     projectLoaded = true;
@@ -67,6 +68,7 @@ void FileViewWidget::attachDir(QTreeWidgetItem * parent, const QString &fileStri
             tmp->setFile(fileI);
             parent->addChild(tmp);
             fileItems.append(tmp);
+            numOfItems++;
         } else
         {
             // is a folder
@@ -80,6 +82,7 @@ void FileViewWidget::attachDir(QTreeWidgetItem * parent, const QString &fileStri
                     tmp->setFile(fileI);
                     tmp->setIsFolder(true);
                     parent->addChild(tmp);
+                    numOfItems++;
                     // recurse
                     attachDir(tmp, fileI.absoluteFilePath());
                 }

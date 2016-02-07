@@ -38,3 +38,16 @@ QTabBar::tab::close-button {
   position: relative;
   right: 10px;
 }
+
+QWidget#welcomeScreenArea {
+  background-color: #EAEAEA;
+}
+QWidget#welcomeButtonWidget
+{
+  background-color: #EAEAEA;
+}
+QLabel#welcomeLabel
+{
+  background-color: #EAEAEA;
+  color: #4E5054;
+}

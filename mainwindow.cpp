@@ -70,7 +70,10 @@ void MainWindow::loadFile()
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
                                                     "/home/documents");
    if(fileName != "")
+    {
         textEditTab->addCodeTab(fileName);
+        ui->welcomeScreen->hide();
+    }
 }
 
 void MainWindow::load(AssetManager *inAssetManager)
@@ -90,8 +93,13 @@ void MainWindow::load(AssetManager *inAssetManager)
     ui->projectViewArea->setWidget(fileView);
     fileViewWidth = ui->projectViewArea->width();
 
-    fileView->loadFolder("/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets");
+    //fileView->loadFolder("/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets");
     //runUnitTests();
+
+    if(textEditTab->numOfTabsOpen != 0)
+    {
+        ui->welcomeScreen->hide();
+    }
 }
 
 MainWindow::~MainWindow()
@@ -117,6 +125,10 @@ void MainWindow::resizeEvent(QResizeEvent *event)
         ui->editArea->move(0, 0);
         ui->editArea->resize(ui->centralWidget->width(), ui->centralWidget->height());
         textEditTab->resize(ui->editArea->width(), ui->centralWidget->height());
+
+        ui->welcomeScreen->resize(ui->centralWidget->width(), ui->centralWidget->height()+30);
+        ui->welcomeLabel->resize(ui->welcomeScreen->width(), ui->welcomeLabel->height());
+        ui->welcomeButtonWidget->resize(ui->welcomeScreen->width(), ui->welcomeButtonWidget->height());
     }
 }
 

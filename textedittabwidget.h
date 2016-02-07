@@ -24,6 +24,7 @@ public:
     void saveCurrentEditor();
     CodeEditor * getEditorAtIndex(int i) const;
     QList<CodeEditor *> getAllEditors() const;
+    int numOfTabsOpen = 0;
 
 private:
     AssetManager *assetManager;

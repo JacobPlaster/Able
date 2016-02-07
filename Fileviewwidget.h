@@ -17,7 +17,7 @@ public:
     bool isProjectLoaded();
     void loadFolder(const QString &);
     void load(AssetManager *, TextEditTabWidget *);
-
+    int numOfItems = 0;
     void attachDir(QTreeWidgetItem * parent, const QString &);
 
 private:

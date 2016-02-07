@@ -22,6 +22,7 @@ void TextEditTabWidget::closeTab(int tabIndex)
     // Removes but, the page widget itself is not deleted.
     QWidget* tab = this->widget(tabIndex);
     this->removeTab(tabIndex);
+    numOfTabsOpen--;
 
     // delete page
     delete(tab);
@@ -88,6 +89,7 @@ bool TextEditTabWidget::addCodeTab(const QString &fileString)
 
     // add new widget
     insertTab(0, newCodeEditor, newCodeEditor->getCurrentFileInfo()->fileName());
+    numOfTabsOpen++;
     // set focus to newly created tab
     this->setCurrentIndex(0);
 
