@@ -227,5 +227,5 @@ void MainWindow::on_welcomeCreateButton_clicked()
 
 void MainWindow::on_welcomeOpenProjectButton_clicked()
 {
-    loadFile();
+    loadFolder();
 }

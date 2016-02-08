@@ -155,12 +155,12 @@ void CodeEditor::save()
     testFile << this->toPlainText().toStdString();
     testFile.flush();
     testFile.close();
+    qDebug() << "Saved file: \"" << currentFile->absoluteFilePath().toStdString().c_str() << "\"";
 }
 
 bool CodeEditor::loadFile(const QString &fileString)
 {
     clear();
-
     // load file
     QFile file(fileString);
     // check if file exists

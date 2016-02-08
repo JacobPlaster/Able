@@ -58,7 +58,7 @@ QLabel#welcomeLabelLogo
 
 QPushButton
 {
-  border: 1px solid #404040;
+  border: 2px solid #404040;
   color: #404040;
   font-size: 14px;
   background-color: none;

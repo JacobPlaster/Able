@@ -227,4 +227,3 @@ void AssetManager::loadLanguageSupportFile(QTextStream &in)
     // append parsed object file
     syntaxHighlightingRules.append(sRuleSet);
 }
-
