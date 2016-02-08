@@ -62,6 +62,7 @@ void MainWindow::loadFolder()
         fileView->loadFolder(dir);
         // resize to fit with folder view
         resizeWithFileView();
+        ui->welcomeScreen->hide();
     }
 }
 
@@ -129,6 +130,7 @@ void MainWindow::resizeEvent(QResizeEvent *event)
         ui->welcomeScreen->resize(ui->centralWidget->width(), ui->centralWidget->height()+30);
         ui->welcomeLabel->resize(ui->welcomeScreen->width(), ui->welcomeLabel->height());
         ui->welcomeButtonWidget->resize(ui->welcomeScreen->width(), ui->welcomeButtonWidget->height());
+        ui->welcomeLabelLogo->resize(ui->welcomeScreen->width(), ui->welcomeLabelLogo->height());
     }
 }
 
@@ -203,6 +205,7 @@ void MainWindow::runUnitTests()
 void MainWindow::resizeWithFileView()
 {
     ui->projectViewArea->resize(fileViewWidth, ui->centralWidget->height());
+
     fileView->resize(ui->projectViewArea->width(), ui->projectViewArea->height());
     ui->editArea->move(ui->projectViewArea->width(), 0);
     ui->editArea->resize((ui->centralWidget->width() - ui->projectViewArea->width()) +1, ui->centralWidget->height());
@@ -216,3 +219,13 @@ void MainWindow::resizeWithFileView()
     Msgbox.setText("Resized.");
     Msgbox.exec();
 */
+
+void MainWindow::on_welcomeCreateButton_clicked()
+{
+
+}
+
+void MainWindow::on_welcomeOpenProjectButton_clicked()
+{
+    loadFile();
+}

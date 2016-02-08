@@ -40,14 +40,31 @@ QTabBar::tab::close-button {
 }
 
 QWidget#welcomeScreenArea {
-  background-color: #EAEAEA;
+  background-color: #F1F1F1;
 }
 QWidget#welcomeButtonWidget
 {
-  background-color: #EAEAEA;
+  background-color: #F1F1F1;
 }
 QLabel#welcomeLabel
 {
-  background-color: #EAEAEA;
-  color: #4E5054;
+  background-color: #F1F1F1;
+  color: #404040;
+}
+QLabel#welcomeLabelLogo
+{
+  background-color: #F1F1F1;
+}
+
+QPushButton
+{
+  border: 1px solid #404040;
+  color: #404040;
+  font-size: 14px;
+  background-color: none;
+}
+QPushButton:hover
+{
+  background-color: #404040;
+  color: #F1F1F1;
 }

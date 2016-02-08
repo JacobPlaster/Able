@@ -44,6 +44,8 @@ private slots:
     void loadFile();
     void loadFolder();
     void saveFile();
+    void on_welcomeOpenProjectButton_clicked();
+    void on_welcomeCreateButton_clicked();
 };
 
 #endif // MAINWINDOW_H

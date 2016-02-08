@@ -31,3 +31,6 @@ HEADERS  += mainwindow.h \
     treefileitem.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    resources.qrc
