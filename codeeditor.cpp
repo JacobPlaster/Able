@@ -12,6 +12,7 @@
 CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent), completer(0)
 {
     lineNumberArea = new LineNumberArea(this);
+    footerBarArea = new FooterBarArea(this);
     syntaxHighlighter = new SyntaxHighlighter(document());
     autoCompleteModel = NULL;
 
@@ -294,6 +295,11 @@ void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
     }
 }
 
+void CodeEditor::footerBarAreaPaintEvent(QPaintEvent *event)
+{
+
+}
+
 CodeEditor::~CodeEditor()
 {
     if(completer)
@@ -310,4 +316,6 @@ CodeEditor::~CodeEditor()
     syntaxHighlighter = NULL;
     delete lineNumberArea;
     lineNumberArea = NULL;
+    delete footerBarArea;
+    footerBarArea = NULL;
 }

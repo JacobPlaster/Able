@@ -27,6 +27,7 @@ public:
     ~CodeEditor();
 
     void lineNumberAreaPaintEvent(QPaintEvent *event);
+    void footerBarAreaPaintEvent(QPaintEvent *event);
     int lineNumberAreaWidth();
     bool loadFile(const QString &);
     QFileInfo * getCurrentFileInfo() const;
@@ -50,6 +51,7 @@ private slots:
 
 private:
     QWidget *lineNumberArea;
+    QWidget *footerBarArea;
     QFileInfo *currentFile;
     SyntaxHighlighter *syntaxHighlighter;
     AssetManager *assetManager;
@@ -79,6 +81,24 @@ protected:
 private:
     CodeEditor *codeEditor;
 };
+
+
+class FooterBarArea : public QWidget
+{
+public:
+    FooterBarArea(CodeEditor *editor) : QWidget(editor) {
+        codeEditor = editor;
+    }
+
+protected:
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE {
+        codeEditor->footerBarAreaPaintEvent(event);
+    }
+
+private:
+    CodeEditor *codeEditor;
+};
+
 
 
 #endif
