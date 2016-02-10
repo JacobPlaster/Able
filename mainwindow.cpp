@@ -94,7 +94,8 @@ void MainWindow::load(AssetManager *inAssetManager)
     ui->projectViewArea->setWidget(fileView);
     fileViewWidth = ui->projectViewArea->width();
 
-    //fileView->loadFolder("/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets");
+    fileView->loadFolder("/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets");
+    ui->welcomeScreen->hide();
     //runUnitTests();
 
     if(textEditTab->numOfTabsOpen != 0)

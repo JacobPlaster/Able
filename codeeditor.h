@@ -57,8 +57,9 @@ private:
     AssetManager *assetManager;
     QCompleter *completer;
     QStringListModel * autoCompleteModel;
-
     QStringList * dynamicAutocompleteSuggestions;
+
+
 };
 
 

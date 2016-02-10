@@ -9,6 +9,7 @@ QPlainTextEdit
   background: #fff;
   color: #464646;
   padding-left: 10px;
+  padding-bottom: 25px;
   border: none;
 }
 FileViewWidget
