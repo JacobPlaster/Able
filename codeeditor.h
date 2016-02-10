@@ -6,6 +6,7 @@
 #include <QFileInfo>
 #include <QCompleter>
 #include <QStringListModel>
+#include <QComboBox>
 
 #include "syntaxhighlighter.h"
 #include "assetmanager.h"
@@ -89,7 +90,11 @@ class FooterBarArea : public QWidget
 public:
     FooterBarArea(CodeEditor *editor) : QWidget(editor) {
         codeEditor = editor;
+
+        QStringList list=(QStringList()<<"Cpp"<<"Html"<<"Python");
+        comboBox->addItems(list);
     }
+    QWidget * comboBox;
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE {

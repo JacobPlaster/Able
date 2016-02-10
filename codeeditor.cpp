@@ -12,6 +12,7 @@
 CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent), completer(0)
 {
     lineNumberArea = new LineNumberArea(this);
+
     footerBarArea = new FooterBarArea(this);
     syntaxHighlighter = new SyntaxHighlighter(document());
     autoCompleteModel = NULL;
@@ -330,4 +331,10 @@ CodeEditor::~CodeEditor()
     lineNumberArea = NULL;
     delete footerBarArea;
     footerBarArea = NULL;
+}
+
+
+void FooterBarArea::load()
+{
+
 }
