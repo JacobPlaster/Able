@@ -20,6 +20,7 @@ public:
     QStringList languageSupport;
     QStringList keywordPatterns;
     QStringList constantKeywords;
+    QString fileName;
 
     QRegExp commentStartExpression;
     QRegExp commentEndExpression;

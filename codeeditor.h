@@ -40,6 +40,8 @@ public:
     QString textUnderCursor() const;
     void setAutoCompleteModel(QStringList &);
 
+    AssetManager *assetManager;
+
 protected:
     void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
     void focusInEvent(QFocusEvent *e) Q_DECL_OVERRIDE;
@@ -56,7 +58,6 @@ private:
     QWidget *footerBarArea;
     QFileInfo *currentFile;
     SyntaxHighlighter *syntaxHighlighter;
-    AssetManager *assetManager;
     QCompleter *completer;
     QStringListModel * autoCompleteModel;
     QStringList * dynamicAutocompleteSuggestions;
@@ -97,7 +98,7 @@ public:
         this->setLayout(layout);
 
         comboBox = new QComboBox();
-        QStringList list=(QStringList()<<"Cpp"<<"Html"<<"Python");
+        QStringList list = codeEditor->assetManager->getLoadedSupportFileNames();
         comboBox->addItems(list);
         comboBox->setObjectName("footerComboBox");
 

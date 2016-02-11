@@ -81,7 +81,7 @@ void AssetManager::loadAllLanguageSupport()
            file.open( QFile::ReadOnly );
            QTextStream fileStream(&file);
            // load into variables
-           loadLanguageSupportFile(fileStream);
+           loadLanguageSupportFile(fileStream, fileI.baseName());
            file.close();
        }
    }
@@ -100,11 +100,23 @@ SyntaxHighlightingRuleSet * AssetManager::getLanguageSupportRuleSet(QString &lan
     return NULL;
 }
 
+QStringList AssetManager::getLoadedSupportFileNames()
+{
+    QStringList list;
+    for(int i = 0; i < syntaxHighlightingRules.length(); i++)
+    {
+        list << syntaxHighlightingRules[i]->fileName;
+    }
+    qDebug() << list;
+    return list;
+}
+
 // Parses the file into an object that the syntax highlighting algorithm can understand
-void AssetManager::loadLanguageSupportFile(QTextStream &in)
+void AssetManager::loadLanguageSupportFile(QTextStream &in, const QString &inFileName)
 {
     int state = -1;
     SyntaxHighlightingRuleSet *sRuleSet = new SyntaxHighlightingRuleSet();
+    sRuleSet->fileName = inFileName;
     QString currentColor;
     QString prevColor;
     QString prevPrevColor;

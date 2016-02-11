@@ -8,6 +8,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument* document): QSyntaxHighlighte
 void SyntaxHighlighter::load(AssetManager *am, QString lan)
 {
     assetManager = am;
+
     ruleSet = am->getLanguageSupportRuleSet(lan);
     if(ruleSet != NULL)
     {

@@ -14,6 +14,7 @@ class AssetManager
         QString getStyle(const std::string &style) const;
         void loadAssets();
         SyntaxHighlightingRuleSet * getLanguageSupportRuleSet(QString &language) const;
+        QStringList getLoadedSupportFileNames();
     private:
         bool isLoaded;
 
@@ -25,7 +26,7 @@ class AssetManager
         QString defaultStyle;
 
         void loadAllLanguageSupport();
-        void loadLanguageSupportFile(QTextStream &);
+        void loadLanguageSupportFile(QTextStream &, const QString &);
         QString LIBS_FILEPATH;
         QVector<SyntaxHighlightingRuleSet*> syntaxHighlightingRules;
 

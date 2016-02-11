@@ -12,8 +12,6 @@
 CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent), completer(0)
 {
     lineNumberArea = new LineNumberArea(this);
-
-    footerBarArea = new FooterBarArea(this);
     syntaxHighlighter = new SyntaxHighlighter(document());
     autoCompleteModel = NULL;
 
@@ -197,6 +195,8 @@ bool CodeEditor::loadFile(const QString &fileString)
     // close file (ALWAYS)
     file.close(); 
 
+    footerBarArea = new FooterBarArea(this);
+
     return true;
 }
 
@@ -214,9 +214,7 @@ int CodeEditor::lineNumberAreaWidth()
         max /= 10;
         ++digits;
     }
-
     int space = 10 + fontMetrics().width(QLatin1Char('9')) * digits;
-
     return space;
 }
 
