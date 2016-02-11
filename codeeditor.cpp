@@ -244,7 +244,7 @@ void CodeEditor::updateLineNumberArea(const QRect &rect, int dy)
 
 void CodeEditor::resizeEvent(QResizeEvent *e)
 {
-    int footerHeight = 25;
+    int footerHeight = 33;
 
     QPlainTextEdit::resizeEvent(e);
     QRect cr = contentsRect();
@@ -308,7 +308,7 @@ void CodeEditor::footerBarAreaPaintEvent(QPaintEvent *event)
 
     QString number = currentFile->absoluteFilePath();
     painter.setPen(QColor("#7F7F7F"));
-    painter.drawText(0, fontMetrics().height()/3, this->width()-fontMetrics().height(), fontMetrics().height(),
+    painter.drawText(0, fontMetrics().height()/2, this->width()-fontMetrics().height(), fontMetrics().height(),
                      Qt::AlignRight, number);
 
 }
@@ -331,10 +331,4 @@ CodeEditor::~CodeEditor()
     lineNumberArea = NULL;
     delete footerBarArea;
     footerBarArea = NULL;
-}
-
-
-void FooterBarArea::load()
-{
-
 }

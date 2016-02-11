@@ -9,7 +9,7 @@ QPlainTextEdit
   background: #fff;
   color: #464646;
   padding-left: 10px;
-  padding-bottom: 25px;
+  padding-bottom: 30px;
   border: none;
 }
 FileViewWidget
@@ -68,4 +68,11 @@ QPushButton:hover
 {
   background-color: #404040;
   color: #F1F1F1;
+}
+QComboBox#footerComboBox
+{
+  position: absolute;
+  margin-top: -5px;
+  width: 150px;
+  min-height: 22px;
 }
