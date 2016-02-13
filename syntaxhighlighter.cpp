@@ -17,6 +17,11 @@ void SyntaxHighlighter::load(AssetManager *am, QString lan)
     }
 }
 
+void SyntaxHighlighter::setSyntaxHighlightingRules(SyntaxHighlightingRuleSet * in)
+{
+    ruleSet = in;
+}
+
 SyntaxHighlightingRuleSet * SyntaxHighlighter::getRuleSet() const
 {
     return ruleSet;

@@ -14,11 +14,12 @@ class SyntaxHighlighter: public QSyntaxHighlighter
        void load(AssetManager *am, QString lan);
        SyntaxHighlightingRuleSet * getRuleSet() const;
        QStringList & getAutoCompleteRules();
+       void setSyntaxHighlightingRules(SyntaxHighlightingRuleSet *);
 
+        SyntaxHighlightingRuleSet *ruleSet;
 
     private:
        AssetManager * assetManager;
-       SyntaxHighlightingRuleSet *ruleSet;
        QStringList autoCompleteSuggestions;
 
        QStringList searchInputForAutocompleteRules(const QString &text);

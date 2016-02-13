@@ -39,8 +39,10 @@ public:
     QCompleter * getCompleter() const;
     QString textUnderCursor() const;
     void setAutoCompleteModel(QStringList &);
+    void changeLanguageSupport(QString supportFileName);
 
     AssetManager *assetManager;
+    SyntaxHighlighter *syntaxHighlighter;
 
 protected:
     void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
@@ -57,7 +59,6 @@ private:
     QWidget *lineNumberArea;
     QWidget *footerBarArea;
     QFileInfo *currentFile;
-    SyntaxHighlighter *syntaxHighlighter;
     QCompleter *completer;
     QStringListModel * autoCompleteModel;
     QStringList * dynamicAutocompleteSuggestions;
@@ -89,6 +90,8 @@ private:
 
 class FooterBarArea : public QWidget
 {
+    Q_OBJECT
+
 public:
     FooterBarArea(CodeEditor *editor) : QWidget(editor) {
         codeEditor = editor;
@@ -98,13 +101,22 @@ public:
         this->setLayout(layout);
 
         comboBox = new QComboBox();
-        QStringList list = codeEditor->assetManager->getLoadedSupportFileNames();
-        comboBox->addItems(list);
+        languagesSupported = codeEditor->assetManager->getLoadedSupportFileNames();
+        comboBox->addItems(languagesSupported);
         comboBox->setObjectName("footerComboBox");
 
         layout->addWidget(comboBox);
         layout->setObjectName("footerComboBoxLayout");
         layout->setAlignment(comboBox, Qt::AlignLeft);
+
+        connect(comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(comboChanged(int)));
+
+        QString currentLanguage = codeEditor->syntaxHighlighter->ruleSet->fileName;
+        for(int i = 0; i < languagesSupported.length(); i++)
+        {
+            if(languagesSupported[i] == currentLanguage)
+                comboBox->setCurrentIndex(i);
+        }
     }
     QComboBox * comboBox;
 
@@ -113,8 +125,16 @@ protected:
         codeEditor->footerBarAreaPaintEvent(event);
     }
 
+
 private:
     CodeEditor *codeEditor;
+    QStringList languagesSupported;
+
+private slots:
+    void comboChanged(int index)
+    {
+        codeEditor->changeLanguageSupport(languagesSupported[index]);
+    }
 };
 
 

@@ -100,6 +100,15 @@ SyntaxHighlightingRuleSet * AssetManager::getLanguageSupportRuleSet(QString &lan
     return NULL;
 }
 
+SyntaxHighlightingRuleSet * AssetManager::getLanguageSupportByName(QString &name)
+{
+    for(int i = 0; i < syntaxHighlightingRules.length(); i++)
+    {
+        if(syntaxHighlightingRules[i]->fileName == name)
+            return syntaxHighlightingRules[i];
+    }
+}
+
 QStringList AssetManager::getLoadedSupportFileNames()
 {
     QStringList list;
@@ -107,7 +116,6 @@ QStringList AssetManager::getLoadedSupportFileNames()
     {
         list << syntaxHighlightingRules[i]->fileName;
     }
-    qDebug() << list;
     return list;
 }
 

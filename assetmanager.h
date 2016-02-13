@@ -15,6 +15,8 @@ class AssetManager
         void loadAssets();
         SyntaxHighlightingRuleSet * getLanguageSupportRuleSet(QString &language) const;
         QStringList getLoadedSupportFileNames();
+        SyntaxHighlightingRuleSet * getLanguageSupportByName(QString &name);
+
     private:
         bool isLoaded;
 
