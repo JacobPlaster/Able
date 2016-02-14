@@ -8,6 +8,8 @@
 #include <QStringListModel>
 #include <QComboBox>
 #include <QHBoxLayout>
+#include <QLineEdit>
+#include <QLabel>
 
 #include "syntaxhighlighter.h"
 #include "assetmanager.h"
@@ -43,6 +45,7 @@ public:
 
     AssetManager *assetManager;
     SyntaxHighlighter *syntaxHighlighter;
+    QFileInfo *currentFile;
 
 protected:
     void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
@@ -58,7 +61,6 @@ private slots:
 private:
     QWidget *lineNumberArea;
     QWidget *footerBarArea;
-    QFileInfo *currentFile;
     QCompleter *completer;
     QStringListModel * autoCompleteModel;
     QStringList * dynamicAutocompleteSuggestions;
@@ -88,6 +90,13 @@ private:
 };
 
 
+
+
+
+
+
+
+
 class FooterBarArea : public QWidget
 {
     Q_OBJECT
@@ -101,13 +110,25 @@ public:
         this->setLayout(layout);
 
         comboBox = new QComboBox();
+        searchBox = new QLineEdit();
+        filePathLabel = new QLabel();
+
         languagesSupported = codeEditor->assetManager->getLoadedSupportFileNames();
         comboBox->addItems(languagesSupported);
+        filePathLabel->setText(codeEditor->currentFile->absoluteFilePath());
+
         comboBox->setObjectName("footerComboBox");
+        searchBox->setObjectName("footerSearchBox");
+        filePathLabel->setObjectName("footerFilePathLabel");
+
 
         layout->addWidget(comboBox);
+        layout->addWidget(searchBox);
+        layout->addWidget(filePathLabel);
         layout->setObjectName("footerComboBoxLayout");
         layout->setAlignment(comboBox, Qt::AlignLeft);
+        layout->setAlignment(searchBox, Qt::AlignLeft);
+        layout->setAlignment(filePathLabel, Qt::AlignRight);
 
         connect(comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(comboChanged(int)));
         if(codeEditor->syntaxHighlighter->ruleSet != NULL)
@@ -125,6 +146,8 @@ public:
         }
     }
     QComboBox * comboBox;
+    QLineEdit * searchBox;
+    QLabel * filePathLabel;
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE {

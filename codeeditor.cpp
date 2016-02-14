@@ -303,12 +303,6 @@ void CodeEditor::footerBarAreaPaintEvent(QPaintEvent *event)
 {
     QPainter painter(footerBarArea);
     painter.fillRect(event->rect(), QColor("#D6D5D5"));
-
-    QString number = currentFile->absoluteFilePath();
-    painter.setPen(QColor("#7F7F7F"));
-    painter.drawText(0, fontMetrics().height()/2, this->width()-fontMetrics().height(), fontMetrics().height(),
-                     Qt::AlignRight, number);
-
 }
 
 void CodeEditor::changeLanguageSupport(QString supportFileName)
