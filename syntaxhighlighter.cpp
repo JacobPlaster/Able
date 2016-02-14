@@ -81,8 +81,6 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
             int pos2 = rxTrimmer.indexIn(suggestionsUnTrimmed[i]);
             if(pos2 != -1 && !autoCompleteSuggestions.contains(rxTrimmer.capturedTexts()[0]))
                 suggestions << rxTrimmer.capturedTexts()[0];
-
-            //qDebug() << suggestionsUnTrimmed[i];
         }
     }
     return suggestions;

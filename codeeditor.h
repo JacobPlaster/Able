@@ -110,12 +110,18 @@ public:
         layout->setAlignment(comboBox, Qt::AlignLeft);
 
         connect(comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(comboChanged(int)));
-
-        QString currentLanguage = codeEditor->syntaxHighlighter->ruleSet->fileName;
-        for(int i = 0; i < languagesSupported.length(); i++)
+        if(codeEditor->syntaxHighlighter->ruleSet != NULL)
         {
-            if(languagesSupported[i] == currentLanguage)
-                comboBox->setCurrentIndex(i);
+            QString currentLanguage = codeEditor->syntaxHighlighter->ruleSet->fileName;
+            for(int i = 0; i < languagesSupported.length(); i++)
+            {
+                if(languagesSupported[i] == currentLanguage)
+                    comboBox->setCurrentIndex(i);
+            }
+        } else
+        {
+            comboBox->addItem("None");
+            comboBox->setCurrentIndex(comboBox->count()-1);
         }
     }
     QComboBox * comboBox;
@@ -133,7 +139,13 @@ private:
 private slots:
     void comboChanged(int index)
     {
-        codeEditor->changeLanguageSupport(languagesSupported[index]);
+        // if the combo box isnt set to 'None'
+        if(index < languagesSupported.count())
+        {
+            // if that rule isnt already applied
+            if(codeEditor->syntaxHighlighter->ruleSet->fileName != languagesSupported[index])
+                codeEditor->changeLanguageSupport(languagesSupported[index]);
+        }
     }
 };
 
