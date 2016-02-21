@@ -271,6 +271,11 @@ void CodeEditor::highlightAndSearchCurrentLine()
     setExtraSelections(extraSelections);
 }
 
+void CodeEditor::highlightText(QRegExp &exp)
+{
+    syntaxHighlighter->highlightMatch(this->toPlainText(), exp);
+}
+
 
 
 void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
@@ -309,9 +314,7 @@ void CodeEditor::changeLanguageSupport(QString supportFileName)
 {
     syntaxHighlighter->setSyntaxHighlightingRules(assetManager->getLanguageSupportByName(supportFileName));
     QString tmp = this->document()->toPlainText();
-    // reload
-    this->document()->setPlainText("");
-    this->document()->setPlainText(tmp);
+    syntaxHighlighter->rehighlight();
 }
 
 CodeEditor::~CodeEditor()

@@ -3,6 +3,7 @@
 SyntaxHighlighter::SyntaxHighlighter(QTextDocument* document): QSyntaxHighlighter(document)
 {
     languageSet = false;
+    searchExpression = QRegExp("");
 }
 
 void SyntaxHighlighter::load(AssetManager *am, QString lan)
@@ -25,6 +26,12 @@ void SyntaxHighlighter::setSyntaxHighlightingRules(SyntaxHighlightingRuleSet * i
 SyntaxHighlightingRuleSet * SyntaxHighlighter::getRuleSet() const
 {
     return ruleSet;
+}
+
+void SyntaxHighlighter::highlightMatch(const QString &text, QRegExp &exp)
+{
+    searchExpression = exp;
+    this->rehighlight();
 }
 
 void SyntaxHighlighter::highlightBlock(const QString &text)
@@ -61,6 +68,27 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
             }
             setFormat(startIndex, commentLength, ruleSet->multiLineCommentFormat);
             startIndex = ruleSet->commentStartExpression.indexIn(text, startIndex + commentLength);
+        }
+
+
+        // if the search box is populated with an expression
+        if(searchExpression.pattern() != "")
+        {
+            QRegExp expr(searchExpression);
+            QTextCharFormat fmt;
+            fmt.setBackground(Qt::yellow);
+
+            if(expr.pattern() != "")
+            {
+                int index = expr.indexIn(text);
+                while(index >= 0)
+                {
+
+                    int length = expr.matchedLength();
+                    this->setFormat(index, length, fmt);
+                    index = expr.indexIn(text, index+length);
+                }
+            }
         }
     }
 }

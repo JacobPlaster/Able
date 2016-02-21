@@ -42,6 +42,7 @@ public:
     QString textUnderCursor() const;
     void setAutoCompleteModel(QStringList &);
     void changeLanguageSupport(QString supportFileName);
+    void highlightText(QRegExp &);
 
     AssetManager *assetManager;
     SyntaxHighlighter *syntaxHighlighter;
@@ -131,6 +132,8 @@ public:
         layout->setAlignment(filePathLabel, Qt::AlignRight);
 
         connect(comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(comboChanged(int)));
+        connect(searchBox, SIGNAL(textChanged(const QString &)), this, SLOT(searchTextChanged(const QString &)));
+
         if(codeEditor->syntaxHighlighter->ruleSet != NULL)
         {
             QString currentLanguage = codeEditor->syntaxHighlighter->ruleSet->fileName;
@@ -169,6 +172,12 @@ private slots:
             if(codeEditor->syntaxHighlighter->ruleSet->fileName != languagesSupported[index])
                 codeEditor->changeLanguageSupport(languagesSupported[index]);
         }
+    }
+
+    void searchTextChanged(const QString &text)
+    {
+        QRegExp exp = QRegExp(text);
+        codeEditor->highlightText(exp);
     }
 };
 

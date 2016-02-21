@@ -15,13 +15,14 @@ class SyntaxHighlighter: public QSyntaxHighlighter
        SyntaxHighlightingRuleSet * getRuleSet() const;
        QStringList & getAutoCompleteRules();
        void setSyntaxHighlightingRules(SyntaxHighlightingRuleSet *);
+       void highlightMatch(const QString &text, QRegExp &exp);
 
         SyntaxHighlightingRuleSet *ruleSet;
 
     private:
        AssetManager * assetManager;
        QStringList autoCompleteSuggestions;
-
+       QRegExp searchExpression;
        QStringList searchInputForAutocompleteRules(const QString &text);
 
        bool languageSet;
