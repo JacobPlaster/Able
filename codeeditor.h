@@ -209,10 +209,16 @@ private slots:
         {
             isExpanded = false;
             height = heightCollapsed;
+
+            QString style = "QPlainTextEdit{padding-bottom: "+QString::number(heightCollapsed)+"px;}";
+            codeEditor->setStyleSheet(style);
         } else
         {
             isExpanded = true;
             height = heightExpanded;
+
+             QString style = "QPlainTextEdit{padding-bottom: "+QString::number(heightExpanded)+"px;}";
+            codeEditor->setStyleSheet(style);
         }
         codeEditor->setFooterHeight(height);
     }

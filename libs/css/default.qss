@@ -12,6 +12,10 @@ QPlainTextEdit
   padding-bottom: 37px;
   border: none;
 }
+*[footerExpanded="true"]
+{
+  padding-bottom: 74px;
+}
 FileViewWidget
 {
   background: #FFFAFA;

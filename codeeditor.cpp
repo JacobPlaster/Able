@@ -244,8 +244,8 @@ void CodeEditor::setFooterHeight(int height)
 {
     this->footerHeight = height;
     footerBarArea->setGeometry(QRect(0, this->height()-footerHeight, this->width(), footerHeight));
-    this->setContentsMargins(0, 0, 0, footerHeight);
-   // this->layout()->setContentsMargins(0, 0, 0, footerHeight);
+    this->setContentsMargins(0, 0, 0, footerHeight+100);
+
 }
 
 void CodeEditor::resizeEvent(QResizeEvent *e)
@@ -255,7 +255,6 @@ void CodeEditor::resizeEvent(QResizeEvent *e)
     lineNumberArea->setGeometry(QRect(cr.left()-10, cr.top()-1, lineNumberAreaWidth()+10, cr.height()));
 
     footerBarArea->setGeometry(QRect(0, this->height()-footerHeight, this->width(), footerHeight));
-   // this->layout()->setContentsMargins(0, 0, 0, footerHeight);
 }
 
 void CodeEditor::highlightAndSearchCurrentLine()
