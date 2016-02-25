@@ -7,6 +7,7 @@
 #include <fstream>
 
 #include "codeeditor.h"
+#include "footerbararea.h"
 
 
 CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent), completer(0)

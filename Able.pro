@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     syntaxhighlighter.cpp \
     syntaxhighlightingruleset.cpp \
     fileviewwidget.cpp \
-    treefileitem.cpp
+    treefileitem.cpp \
+    footerbararea.cpp
 
 HEADERS  += mainwindow.h \
     assetmanager.h \
@@ -28,7 +29,8 @@ HEADERS  += mainwindow.h \
     syntaxhighlighter.h \
     syntaxhighlightingruleset.h \
     fileviewwidget.h \
-    treefileitem.h
+    treefileitem.h \
+    footerbararea.h
 
 FORMS    += mainwindow.ui
 
