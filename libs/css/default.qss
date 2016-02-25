@@ -9,7 +9,7 @@ QPlainTextEdit
   background: #fff;
   color: #464646;
   padding-left: 10px;
-  padding-bottom: 30px;
+  padding-bottom: 37px;
   border: none;
 }
 FileViewWidget
@@ -96,4 +96,9 @@ QLabel#footerFilePathLabel
   color: #9A9A9A;
   margin-left: 10px;
   margin-right: 10px;
+
+}
+QPushButton#footerResizeButton
+{
+  padding: 0px 5px;
 }

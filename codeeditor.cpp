@@ -14,6 +14,7 @@ CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent), completer(0)
     lineNumberArea = new LineNumberArea(this);
     syntaxHighlighter = new SyntaxHighlighter(document());
     autoCompleteModel = NULL;
+    footerHeight = 40;
 
     connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
     connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLineNumberArea(QRect,int)));
@@ -239,17 +240,22 @@ void CodeEditor::updateLineNumberArea(const QRect &rect, int dy)
 }
 
 
+void CodeEditor::setFooterHeight(int height)
+{
+    this->footerHeight = height;
+    footerBarArea->setGeometry(QRect(0, this->height()-footerHeight, this->width(), footerHeight));
+    this->setContentsMargins(0, 0, 0, footerHeight);
+   // this->layout()->setContentsMargins(0, 0, 0, footerHeight);
+}
 
 void CodeEditor::resizeEvent(QResizeEvent *e)
 {
-    int footerHeight = 33;
-
     QPlainTextEdit::resizeEvent(e);
     QRect cr = contentsRect();
-    QRect cr2 = contentsRect();
     lineNumberArea->setGeometry(QRect(cr.left()-10, cr.top()-1, lineNumberAreaWidth()+10, cr.height()));
 
     footerBarArea->setGeometry(QRect(0, this->height()-footerHeight, this->width(), footerHeight));
+   // this->layout()->setContentsMargins(0, 0, 0, footerHeight);
 }
 
 void CodeEditor::highlightAndSearchCurrentLine()

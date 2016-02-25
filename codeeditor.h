@@ -10,6 +10,7 @@
 #include <QHBoxLayout>
 #include <QLineEdit>
 #include <QLabel>
+#include <QPushButton>
 
 #include "syntaxhighlighter.h"
 #include "assetmanager.h"
@@ -43,10 +44,12 @@ public:
     void setAutoCompleteModel(QStringList &);
     void changeLanguageSupport(QString supportFileName);
     void highlightText(QRegExp &);
+    void resizeFooter(int height);
 
     AssetManager *assetManager;
     SyntaxHighlighter *syntaxHighlighter;
     QFileInfo *currentFile;
+    void setFooterHeight(int height);
 
 protected:
     void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
@@ -65,6 +68,7 @@ private:
     QCompleter *completer;
     QStringListModel * autoCompleteModel;
     QStringList * dynamicAutocompleteSuggestions;
+    int footerHeight;
 
 
 };
@@ -113,6 +117,7 @@ public:
         comboBox = new QComboBox();
         searchBox = new QLineEdit();
         filePathLabel = new QLabel();
+        resizeButton = new QPushButton();
 
         languagesSupported = codeEditor->assetManager->getLoadedSupportFileNames();
         comboBox->addItems(languagesSupported);
@@ -120,12 +125,18 @@ public:
 
         comboBox->setObjectName("footerComboBox");
         searchBox->setObjectName("footerSearchBox");
+        searchBox->setPlaceholderText("RegExp search...");
         filePathLabel->setObjectName("footerFilePathLabel");
+        filePathLabel->setAlignment(Qt::AlignRight);
+
+        resizeButton->setObjectName("footerResizeButton");
+        resizeButton->setText("^");
 
 
         layout->addWidget(comboBox);
         layout->addWidget(searchBox);
         layout->addWidget(filePathLabel);
+        layout->addWidget(resizeButton);
         layout->setObjectName("footerComboBoxLayout");
         layout->setAlignment(comboBox, Qt::AlignLeft);
         layout->setAlignment(searchBox, Qt::AlignLeft);
@@ -133,6 +144,7 @@ public:
 
         connect(comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(comboChanged(int)));
         connect(searchBox, SIGNAL(textChanged(const QString &)), this, SLOT(searchTextChanged(const QString &)));
+        connect(resizeButton, SIGNAL(clicked()), this, SLOT(toggleResize()));
 
         if(codeEditor->syntaxHighlighter->ruleSet != NULL)
         {
@@ -147,10 +159,16 @@ public:
             comboBox->addItem("None");
             comboBox->setCurrentIndex(comboBox->count()-1);
         }
+
+        heightCollapsed = 40;
+        heightExpanded = 80;
+        height = heightCollapsed;
+        isExpanded = false;
     }
     QComboBox * comboBox;
     QLineEdit * searchBox;
     QLabel * filePathLabel;
+    QPushButton * resizeButton;
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE {
@@ -161,6 +179,11 @@ protected:
 private:
     CodeEditor *codeEditor;
     QStringList languagesSupported;
+    int footerHeight;
+    int height;
+    int heightCollapsed;
+    int heightExpanded;
+    bool isExpanded;
 
 private slots:
     void comboChanged(int index)
@@ -178,6 +201,20 @@ private slots:
     {
         QRegExp exp = QRegExp(text);
         codeEditor->highlightText(exp);
+    }
+
+    void toggleResize()
+    {
+        if(isExpanded)
+        {
+            isExpanded = false;
+            height = heightCollapsed;
+        } else
+        {
+            isExpanded = true;
+            height = heightExpanded;
+        }
+        codeEditor->setFooterHeight(height);
     }
 };
 

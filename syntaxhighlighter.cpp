@@ -38,6 +38,7 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
 {
     if(languageSet)
     {
+        // stops syntax highlight code running when searching for reg exp query
         // search line for any autocomplete suggestions
         autoCompleteSuggestions += searchInputForAutocompleteRules(text);
 
@@ -74,21 +75,25 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
         // if the search box is populated with an expression
         if(searchExpression.pattern() != "")
         {
-            QRegExp expr(searchExpression);
-            QTextCharFormat fmt;
-            fmt.setBackground(Qt::yellow);
+            highlightSearchExpression(searchExpression, text);
+        }
+    }
+}
 
-            if(expr.pattern() != "")
-            {
-                int index = expr.indexIn(text);
-                while(index >= 0)
-                {
+void SyntaxHighlighter::highlightSearchExpression(QRegExp expr, const QString &text)
+{
+    QTextCharFormat fmt;
+    fmt.setBackground(Qt::yellow);
 
-                    int length = expr.matchedLength();
-                    this->setFormat(index, length, fmt);
-                    index = expr.indexIn(text, index+length);
-                }
-            }
+    if(expr.pattern() != "")
+    {
+        int index = expr.indexIn(text);
+        while(index >= 0)
+        {
+
+            int length = expr.matchedLength();
+            this->setFormat(index, length, fmt);
+            index = expr.indexIn(text, index+length);
         }
     }
 }

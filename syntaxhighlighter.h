@@ -24,6 +24,7 @@ class SyntaxHighlighter: public QSyntaxHighlighter
        QStringList autoCompleteSuggestions;
        QRegExp searchExpression;
        QStringList searchInputForAutocompleteRules(const QString &text);
+       void highlightSearchExpression(QRegExp expr, const QString &text);
 
        bool languageSet;
 };
