@@ -33,6 +33,8 @@ class FooterBarArea : public QWidget
         QLineEdit * replaceBox;
         QLabel * cursorInfoLabel;
 
+        void setCursorInfoText(int charIndex, int lineIndex);
+
     protected:
         void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE {
             codeEditor->footerBarAreaPaintEvent(event);
@@ -60,8 +62,17 @@ class FooterBarArea : public QWidget
             if(index < languagesSupported.count())
             {
                 // if that rule isnt already applied
-                if(codeEditor->syntaxHighlighter->ruleSet->fileName != languagesSupported[index])
+                if(codeEditor->syntaxHighlighter->ruleSet != NULL)
+                {
+                    if(codeEditor->syntaxHighlighter->ruleSet->fileName != languagesSupported[index])
+                        codeEditor->changeLanguageSupport(languagesSupported[index]);
+                } else
+                {
                     codeEditor->changeLanguageSupport(languagesSupported[index]);
+                }
+            } else
+            {
+                codeEditor->changeLanguageSupport(NULL);
             }
         }
 

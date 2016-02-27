@@ -21,6 +21,10 @@ void SyntaxHighlighter::load(AssetManager *am, QString lan)
 void SyntaxHighlighter::setSyntaxHighlightingRules(SyntaxHighlightingRuleSet * in)
 {
     ruleSet = in;
+    if(in != NULL)
+        languageSet = true;
+    else
+        languageSet = false;
 }
 
 SyntaxHighlightingRuleSet * SyntaxHighlighter::getRuleSet() const

@@ -318,7 +318,10 @@ void CodeEditor::footerBarAreaPaintEvent(QPaintEvent *event)
 
 void CodeEditor::changeLanguageSupport(QString supportFileName)
 {
-    syntaxHighlighter->setSyntaxHighlightingRules(assetManager->getLanguageSupportByName(supportFileName));
+    if(supportFileName != NULL)
+        syntaxHighlighter->setSyntaxHighlightingRules(assetManager->getLanguageSupportByName(supportFileName));
+    else
+        syntaxHighlighter->setSyntaxHighlightingRules(NULL);
     QString tmp = this->document()->toPlainText();
     syntaxHighlighter->rehighlight();
 }

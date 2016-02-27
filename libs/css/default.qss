@@ -78,9 +78,10 @@ QComboBox#footerComboBox
   position: absolute;
   min-height: 20px;
   margin-right: 0px;
+  padding-left: 4px;
 
   background-color: #E4E2E2;
-  border: 1px solid #9A9A9A;
+  border: 1px solid #828282;
   color: #828080;
 }
 QLineEdit#footerReplaceBox
@@ -90,7 +91,7 @@ QLineEdit#footerReplaceBox
   padding: 2px;
 
   background-color: #E4E2E2;
-  border: 1px solid #9A9A9A;
+  border: 1px solid #828080;
 }
 QLineEdit#footerSearchBox
 {
@@ -98,7 +99,7 @@ QLineEdit#footerSearchBox
   padding: 2px;
 
   background-color: #E4E2E2;
-  border: 1px solid #9A9A9A;
+  border: 1px solid #828282;
   color: #828080;
 }
 QLabel#footerCursorInfoLabel

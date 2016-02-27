@@ -29,6 +29,7 @@ FooterBarArea::FooterBarArea(CodeEditor *editor) : QWidget(editor)
 
     languagesSupported = codeEditor->assetManager->getLoadedSupportFileNames();
     comboBox->addItems(languagesSupported);
+    comboBox->addItem("None");
     filePathLabel->setText(codeEditor->currentFile->absoluteFilePath());
 
     comboBox->setObjectName("footerComboBox");
@@ -77,7 +78,6 @@ FooterBarArea::FooterBarArea(CodeEditor *editor) : QWidget(editor)
         }
     } else
     {
-        comboBox->addItem("None");
         comboBox->setCurrentIndex(comboBox->count()-1);
     }
 
@@ -115,6 +115,11 @@ void FooterBarArea::toggleResize()
         codeEditor->setStyleSheet(style);
     }
     codeEditor->setFooterHeight(height);
+}
+
+void FooterBarArea::setCursorInfoText(int charIndex, int lineIndex)
+{
+     cursorInfoLabel->setText(QString::number(charIndex)+":"+QString::number(lineIndex));
 }
 
 
