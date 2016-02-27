@@ -30,6 +30,7 @@ class FooterBarArea : public QWidget
         QLabel * filePathLabel;
         QPushButton * resizeButton;
         QLineEdit * replaceBox;
+        QLabel * cursorInfoLabel;
 
     protected:
         void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE {
@@ -45,6 +46,11 @@ class FooterBarArea : public QWidget
         int heightCollapsed;
         int heightExpanded;
         bool isExpanded;
+        QHBoxLayout *mainLayout;
+        QVBoxLayout *layout;
+        QVBoxLayout *layout2;
+        QVBoxLayout *layout3;
+        QHBoxLayout *layout3H;
 
     private slots:
         void comboChanged(int index)
@@ -64,25 +70,7 @@ class FooterBarArea : public QWidget
             codeEditor->highlightText(exp);
         }
 
-        void toggleResize()
-        {
-            if(isExpanded)
-            {
-                isExpanded = false;
-                height = heightCollapsed;
-
-                QString style = "QPlainTextEdit{padding-bottom: "+QString::number(heightCollapsed)+"px;}";
-                codeEditor->setStyleSheet(style);
-            } else
-            {
-                isExpanded = true;
-                height = heightExpanded;
-
-                 QString style = "QPlainTextEdit{padding-bottom: "+QString::number(heightExpanded)+"px;}";
-                codeEditor->setStyleSheet(style);
-            }
-            codeEditor->setFooterHeight(height);
-        }
+        void toggleResize();
 };
 
 

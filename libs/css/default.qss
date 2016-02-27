@@ -76,33 +76,50 @@ QPushButton:hover
 QComboBox#footerComboBox
 {
   position: absolute;
-  width: 400px;
   min-height: 20px;
   margin-right: 0px;
 
   background-color: #E4E2E2;
   border: 1px solid #9A9A9A;
-  color: #9A9A9A;
+  color: #828080;
 }
-QLineEdit#footerSearchBox
+QLineEdit#footerReplaceBox
 {
-  width: 400px;
+  color: #828080;
   min-height: 15px;
   padding: 2px;
 
   background-color: #E4E2E2;
   border: 1px solid #9A9A9A;
-  color: #9A9A9A;
+}
+QLineEdit#footerSearchBox
+{
+  min-height: 15px;
+  padding: 2px;
+
+  background-color: #E4E2E2;
+  border: 1px solid #9A9A9A;
+  color: #828080;
+}
+QLabel#footerCursorInfoLabel
+{
+  background-color: #D6D5D5;
+  color: #828080;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 QLabel#footerFilePathLabel
 {
   background-color: #D6D5D5;
-  color: #9A9A9A;
+  color: #828080;
   margin-left: 10px;
   margin-right: 10px;
-
 }
 QPushButton#footerResizeButton
 {
-  padding: 0px 5px;
+  padding: 2px;
+  max-width: 10px;
+  color: #828080;
+  border: 1px solid #828080;
+  max-height: 10px;
 }
