@@ -23,6 +23,7 @@ FooterBarArea::FooterBarArea(CodeEditor *editor) : QWidget(editor)
     searchBox = new QLineEdit();
     filePathLabel = new QLabel();
     resizeButton = new QPushButton();
+    moreButton = new QPushButton();
     replaceBox = new QLineEdit();
     cursorInfoLabel = new QLabel();
 
@@ -36,6 +37,7 @@ FooterBarArea::FooterBarArea(CodeEditor *editor) : QWidget(editor)
     filePathLabel->setObjectName("footerFilePathLabel");
     filePathLabel->setAlignment(Qt::AlignRight);
     cursorInfoLabel->setObjectName("footerCursorInfoLabel");
+    moreButton->setObjectName("footerMoreButton");
 
     resizeButton->setObjectName("footerResizeButton");
     resizeButton->setText("▴");
@@ -59,6 +61,7 @@ FooterBarArea::FooterBarArea(CodeEditor *editor) : QWidget(editor)
     replaceBox->setPlaceholderText("Raplace with...");
     replaceBox->setObjectName("footerReplaceBox");
     cursorInfoLabel->setText("31:22");
+    moreButton->setText("More");
 
     connect(comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(comboChanged(int)));
     connect(searchBox, SIGNAL(textChanged(const QString &)), this, SLOT(searchTextChanged(const QString &)));
@@ -93,6 +96,7 @@ void FooterBarArea::toggleResize()
 
         layout2->removeWidget(replaceBox);
         layout3->removeWidget(filePathLabel);
+        layout->removeWidget(moreButton);
         resizeButton->setText("▴");
 
         QString style = "QPlainTextEdit{padding-bottom: "+QString::number(heightCollapsed)+"px;}";
@@ -104,6 +108,7 @@ void FooterBarArea::toggleResize()
 
         layout2->addWidget(replaceBox);
         layout3->addWidget(filePathLabel);
+        layout->addWidget(moreButton);
         resizeButton->setText("▾");
 
          QString style = "QPlainTextEdit{padding-bottom: "+QString::number(heightExpanded)+"px;}";
@@ -137,5 +142,7 @@ FooterBarArea::~FooterBarArea()
     replaceBox = NULL;
     delete cursorInfoLabel;
     cursorInfoLabel = NULL;
+    delete moreButton;
+    moreButton = NULL;
 }
 

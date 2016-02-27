@@ -29,6 +29,7 @@ class FooterBarArea : public QWidget
         QLineEdit * searchBox;
         QLabel * filePathLabel;
         QPushButton * resizeButton;
+        QPushButton * moreButton;
         QLineEdit * replaceBox;
         QLabel * cursorInfoLabel;
 
