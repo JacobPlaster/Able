@@ -324,6 +324,7 @@ void CodeEditor::footerBarAreaPaintEvent(QPaintEvent *event)
     painter.fillRect(event->rect(), QColor("#D6D5D5"));
 }
 
+
 void CodeEditor::changeLanguageSupport(QString supportFileName)
 {
     if(supportFileName != NULL)
@@ -333,6 +334,7 @@ void CodeEditor::changeLanguageSupport(QString supportFileName)
     QString tmp = this->document()->toPlainText();
     syntaxHighlighter->rehighlight();
 }
+
 
 CodeEditor::~CodeEditor()
 {

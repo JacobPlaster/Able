@@ -131,6 +131,7 @@ QPushButton#footerResizeButton
 QPushButton#footerMoreButton
 {
   color: #828080;
+  padding: 2px 7px;
   border: 1px solid #828080;
 }
 QPushButton#footerReplaceButton
