@@ -29,6 +29,7 @@ class FooterBarArea : public QWidget
         QLineEdit * searchBox;
         QLabel * filePathLabel;
         QPushButton * resizeButton;
+        QPushButton * replaceButton;
         QPushButton * moreButton;
         QLineEdit * replaceBox;
         QLabel * cursorInfoLabel;
@@ -52,6 +53,7 @@ class FooterBarArea : public QWidget
         QHBoxLayout *mainLayout;
         QVBoxLayout *layout;
         QVBoxLayout *layout2;
+        QHBoxLayout *layout2H;
         QVBoxLayout *layout3;
         QHBoxLayout *layout3H;
 
@@ -83,6 +85,7 @@ class FooterBarArea : public QWidget
         }
 
         void toggleResize();
+        void replaceMatchedText();
 };
 
 

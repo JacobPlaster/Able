@@ -277,6 +277,13 @@ void CodeEditor::highlightAndSearchCurrentLine()
     setExtraSelections(extraSelections);
 }
 
+void CodeEditor::replaceSearchMatchedText(const QString &replace, QRegExp &exp)
+{
+    QString text = this->toPlainText();
+    text.replace(exp, replace);
+    this->setPlainText(text);
+}
+
 void CodeEditor::highlightText(QRegExp &exp)
 {
     syntaxHighlighter->highlightMatch(this->toPlainText(), exp);
@@ -292,6 +299,7 @@ void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
 
     QTextBlock block = firstVisibleBlock();
     int blockNumber = block.blockNumber();
+
     int top = (int) blockBoundingGeometry(block).translated(contentOffset()).top();
     int bottom = top + (int) blockBoundingRect(block).height();
 

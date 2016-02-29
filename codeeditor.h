@@ -45,6 +45,7 @@ class CodeEditor : public QPlainTextEdit
         SyntaxHighlighter *syntaxHighlighter;
         QFileInfo *currentFile;
         void setFooterHeight(int height);
+        void replaceSearchMatchedText(const QString &, QRegExp &);
 
     protected:
         void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
@@ -86,6 +87,5 @@ class LineNumberArea : public QWidget
     private:
         CodeEditor *codeEditor;
 };
-
 
 #endif

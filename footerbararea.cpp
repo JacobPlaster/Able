@@ -11,6 +11,7 @@ FooterBarArea::FooterBarArea(CodeEditor *editor) : QWidget(editor)
     layout = new QVBoxLayout();
     mainLayout->addLayout(layout);
     layout2 = new QVBoxLayout();
+    layout2H = new QHBoxLayout();
     mainLayout->addLayout(layout2);
     layout3 = new QVBoxLayout();
     mainLayout->addLayout(layout3);
@@ -24,6 +25,7 @@ FooterBarArea::FooterBarArea(CodeEditor *editor) : QWidget(editor)
     filePathLabel = new QLabel();
     resizeButton = new QPushButton();
     moreButton = new QPushButton();
+    replaceButton = new QPushButton();
     replaceBox = new QLineEdit();
     cursorInfoLabel = new QLabel();
 
@@ -39,6 +41,7 @@ FooterBarArea::FooterBarArea(CodeEditor *editor) : QWidget(editor)
     filePathLabel->setAlignment(Qt::AlignRight);
     cursorInfoLabel->setObjectName("footerCursorInfoLabel");
     moreButton->setObjectName("footerMoreButton");
+    replaceButton->setObjectName("footerReplaceButton");
 
     resizeButton->setObjectName("footerResizeButton");
     resizeButton->setText("▴");
@@ -48,25 +51,24 @@ FooterBarArea::FooterBarArea(CodeEditor *editor) : QWidget(editor)
 
     layout2->setObjectName("footerComboBoxLayout2");
     layout2->addWidget(searchBox);
+    layout2->addLayout(layout2H);
 
     layout3H->addWidget(cursorInfoLabel);
     layout3H->addWidget(resizeButton);
     layout3H->setAlignment(resizeButton, Qt::AlignRight);
     layout3H->setAlignment(cursorInfoLabel, Qt::AlignRight);
 
-    //layout->setAlignment(comboBox, Qt::AlignLeft);
-    //layout->setAlignment(searchBox, Qt::AlignLeft);
-    //layout->setAlignment(filePathLabel, Qt::AlignRight);
-
 
     replaceBox->setPlaceholderText("Raplace with...");
     replaceBox->setObjectName("footerReplaceBox");
     cursorInfoLabel->setText("31:22");
     moreButton->setText("More");
+    replaceButton->setText("Replace");
 
     connect(comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(comboChanged(int)));
     connect(searchBox, SIGNAL(textChanged(const QString &)), this, SLOT(searchTextChanged(const QString &)));
     connect(resizeButton, SIGNAL(clicked()), this, SLOT(toggleResize()));
+    connect(replaceButton, SIGNAL(clicked()), this, SLOT(replaceMatchedText()));
 
     if(codeEditor->syntaxHighlighter->ruleSet != NULL)
     {
@@ -94,7 +96,8 @@ void FooterBarArea::toggleResize()
         isExpanded = false;
         height = heightCollapsed;
 
-        layout2->removeWidget(replaceBox);
+        layout2H->removeWidget(replaceBox);
+        layout2H->removeWidget(replaceButton);
         layout3->removeWidget(filePathLabel);
         layout->removeWidget(moreButton);
         resizeButton->setText("▴");
@@ -106,7 +109,8 @@ void FooterBarArea::toggleResize()
         isExpanded = true;
         height = heightExpanded;
 
-        layout2->addWidget(replaceBox);
+        layout2H->addWidget(replaceBox);
+        layout2H->addWidget(replaceButton);
         layout3->addWidget(filePathLabel);
         layout->addWidget(moreButton);
         resizeButton->setText("▾");
@@ -122,6 +126,12 @@ void FooterBarArea::setCursorInfoText(int charIndex, int lineIndex)
      cursorInfoLabel->setText(QString::number(charIndex)+":"+QString::number(lineIndex));
 }
 
+void FooterBarArea::replaceMatchedText()
+{
+    QRegExp exp(searchBox->text());
+    codeEditor->replaceSearchMatchedText(replaceBox->text(), exp);
+}
+
 
 FooterBarArea::~FooterBarArea()
 {
@@ -130,6 +140,8 @@ FooterBarArea::~FooterBarArea()
     layout3H = NULL;
     delete layout3;
     layout3 = NULL;
+    delete layout2H;
+    layout2H = NULL;
     delete layout2;
     layout2 = NULL;
     delete layout;
@@ -149,5 +161,7 @@ FooterBarArea::~FooterBarArea()
     cursorInfoLabel = NULL;
     delete moreButton;
     moreButton = NULL;
+    delete replaceButton;
+    replaceButton = NULL;
 }
 
