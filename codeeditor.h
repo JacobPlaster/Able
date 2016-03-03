@@ -49,6 +49,7 @@ class CodeEditor : public QPlainTextEdit
 
     protected:
         void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
+        //void keyReleaseEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
         void focusInEvent(QFocusEvent *e) Q_DECL_OVERRIDE;
         void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 
@@ -65,6 +66,8 @@ class CodeEditor : public QPlainTextEdit
         QStringListModel * autoCompleteModel;
         QStringList * dynamicAutocompleteSuggestions;
         int footerHeight;
+        int tabStop;
+        void appendCodeLine(QString &line);
 };
 
 

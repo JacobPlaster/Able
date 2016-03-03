@@ -5,9 +5,9 @@
 
 #include <iostream>
 #include <fstream>
+#include <footerbararea.h>
 
 #include "codeeditor.h"
-#include "footerbararea.h"
 
 
 CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent), completer(0)
@@ -27,6 +27,10 @@ CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent), completer(0)
     completer = new QCompleter(this);
     completer->setWrapAround(false);
     setAutoCompleter(completer);
+
+    tabStop = 4;
+    QFontMetrics metrics(this->font());
+    this->setTabStopWidth(tabStop * metrics.width(' '));
 }
 
 void CodeEditor::setAutoCompleteModel(QStringList  &wordList)
@@ -40,7 +44,6 @@ void CodeEditor::setAutoCompleteModel(QStringList  &wordList)
 
 void CodeEditor::setAutoCompleter(QCompleter *inCompleter)
 {
-
     // if already exists
     if (completer)
         QObject::disconnect(completer, 0, this, 0);
@@ -66,10 +69,46 @@ void CodeEditor::focusInEvent(QFocusEvent *e)
 
 void CodeEditor::keyPressEvent(QKeyEvent *e)
 {
-    // update autocorrect if enter pressed
+    //if neter pressed and autocorrect window not open
     if(e->key() == Qt::Key_Return && !completer->popup()->isVisible())
+    {
+        // update autocorrect if enter pressed
        this->setAutoCompleteModel(syntaxHighlighter->getAutoCompleteRules());
+       // User wants to progress to next line so manage indentation
 
+        // gets the previous line which contains text
+        QString previousLineText = "";
+        int previousLineNum = this->textCursor().blockNumber();
+         do
+        {
+            QTextBlock previousLineBlock = this->document()->findBlockByLineNumber(previousLineNum);
+            previousLineText = previousLineBlock.text();
+            previousLineNum -= 1;
+        // while line is not empty
+        } while(previousLineText.trimmed().isEmpty() && previousLineNum >= 0);
+        // get the level of indentation
+        int indentation = 0;
+        for(int i = 0; i < previousLineText.length(); i ++)
+        {
+            if(previousLineText[i] == ' ')
+                indentation +=1;
+            else
+                break;
+        }
+        // add indentation to current line
+        QString indent = "";
+        for(int i = 0; i < indentation; i++)
+            indent = indent + " ";
+
+        // use default even before append
+        QPlainTextEdit::keyPressEvent(e);
+        this->insertPlainText(indent);
+        // ignore the post-event processing
+        e->ignore();
+        return;
+    }
+
+    // User is progressing to next line
     if (completer && completer->popup()->isVisible()) {
         // keys that are returned to the codeEditor from the completer
         // we have to do this since the codeEditor is now out of focus
@@ -192,21 +231,26 @@ bool CodeEditor::loadFile(const QString &fileString)
     // read line by line
     while(!in.atEnd()) {
         QString line = in.readLine();
-        appendPlainText(line);
+        this->appendCodeLine(line);
     }
     // close file (ALWAYS)
     file.close(); 
 
     footerBarArea = new FooterBarArea(this);
+    connect(this, SIGNAL(cursorPositionChanged()), footerBarArea, SLOT(codeCursorChanged()));
 
     return true;
+}
+
+void CodeEditor::appendCodeLine(QString &line)
+{
+    this->appendPlainText(line);
 }
 
 QFileInfo * CodeEditor::getCurrentFileInfo() const
 {
     return currentFile;
 }
-
 
 int CodeEditor::lineNumberAreaWidth()
 {

@@ -126,6 +126,14 @@ void FooterBarArea::setCursorInfoText(int charIndex, int lineIndex)
      cursorInfoLabel->setText(QString::number(charIndex)+":"+QString::number(lineIndex));
 }
 
+void FooterBarArea::codeCursorChanged()
+{
+    // text edit changed, update line number and char
+    int lineNumber = codeEditor->textCursor().blockNumber() + 1;
+    int charNumber = codeEditor->textCursor().columnNumber();
+    setCursorInfoText(charNumber, lineNumber);
+}
+
 void FooterBarArea::replaceMatchedText()
 {
     QRegExp exp(searchBox->text());

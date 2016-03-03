@@ -11,12 +11,13 @@
 #include <QLabel>
 #include <QPushButton>
 
-#include "codeeditor.h"
 #include "assetmanager.h"
+#include "codeeditor.h"
 
 class QWidget;
 class QPaintEvent;
 class QResizeEvent;
+
 
 class FooterBarArea : public QWidget
 {
@@ -83,6 +84,7 @@ class FooterBarArea : public QWidget
             QRegExp exp = QRegExp(text);
             codeEditor->highlightText(exp);
         }
+        void codeCursorChanged();
 
         void toggleResize();
         void replaceMatchedText();

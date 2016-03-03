@@ -85,7 +85,12 @@ bool TextEditTabWidget::addCodeTab(const QString &fileString)
 
     newCodeEditor->setTabStopWidth(30);
     newCodeEditor->setWordWrapMode(QTextOption::NoWrap);
-    newCodeEditor->setFont(assetManager->getFont("MAIN_CODE_FONT"));
+
+    QFont font = assetManager->getFont("MAIN_CODE_FONT");
+    font.setStyleHint(QFont::Monospace);
+    font.setFixedPitch(true);
+
+    newCodeEditor->setFont(font);
 
     // add new widget
     insertTab(0, newCodeEditor, newCodeEditor->getCurrentFileInfo()->fileName());

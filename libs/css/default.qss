@@ -15,6 +15,7 @@ QPlainTextEdit
 *[footerExpanded="true"]
 {
   padding-bottom: 74px;
+
 }
 FileViewWidget
 {
@@ -106,6 +107,7 @@ QLabel#footerCursorInfoLabel
 {
   background-color: #D6D5D5;
   color: #828080;
+  min-width: 50px;
   margin-left: 10px;
   margin-top: 4px;
 }
