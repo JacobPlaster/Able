@@ -32,6 +32,7 @@ class FooterBarArea : public QWidget
         QPushButton * resizeButton;
         QPushButton * replaceButton;
         QPushButton * moreButton;
+        QPushButton * searchButton;
         QLineEdit * replaceBox;
         QLabel * cursorInfoLabel;
 
@@ -54,6 +55,7 @@ class FooterBarArea : public QWidget
         QHBoxLayout *mainLayout;
         QVBoxLayout *layout;
         QVBoxLayout *layout2;
+        QHBoxLayout *layout2H1;
         QHBoxLayout *layout2H;
         QVBoxLayout *layout3;
         QHBoxLayout *layout3H;
@@ -79,8 +81,9 @@ class FooterBarArea : public QWidget
             }
         }
 
-        void searchTextChanged(const QString &text)
+        void searchButtonClicked()
         {
+            QString text = searchBox->text();
             QRegExp exp = QRegExp(text);
             codeEditor->highlightText(exp);
         }

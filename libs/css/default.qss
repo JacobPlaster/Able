@@ -141,4 +141,12 @@ QPushButton#footerReplaceButton
   color: #828080;
   border: 1px solid #828080;
   padding: 2px 7px;
+  min-height: 15px;
+}
+QPushButton#footerSearchButton
+{
+  color: #828080;
+  border: 1px solid #828080;
+  padding: 2px 7px;
+  min-height: 15px;
 }

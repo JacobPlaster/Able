@@ -11,6 +11,7 @@ FooterBarArea::FooterBarArea(CodeEditor *editor) : QWidget(editor)
     layout = new QVBoxLayout();
     mainLayout->addLayout(layout);
     layout2 = new QVBoxLayout();
+    layout2H1 = new QHBoxLayout();
     layout2H = new QHBoxLayout();
     mainLayout->addLayout(layout2);
     layout3 = new QVBoxLayout();
@@ -26,6 +27,7 @@ FooterBarArea::FooterBarArea(CodeEditor *editor) : QWidget(editor)
     resizeButton = new QPushButton();
     moreButton = new QPushButton();
     replaceButton = new QPushButton();
+    searchButton = new QPushButton();
     replaceBox = new QLineEdit();
     cursorInfoLabel = new QLabel();
 
@@ -42,6 +44,7 @@ FooterBarArea::FooterBarArea(CodeEditor *editor) : QWidget(editor)
     cursorInfoLabel->setObjectName("footerCursorInfoLabel");
     moreButton->setObjectName("footerMoreButton");
     replaceButton->setObjectName("footerReplaceButton");
+    searchButton->setObjectName("footerSearchButton");
 
     resizeButton->setObjectName("footerResizeButton");
     resizeButton->setText("▴");
@@ -49,8 +52,10 @@ FooterBarArea::FooterBarArea(CodeEditor *editor) : QWidget(editor)
     layout->setObjectName("footerComboBoxLayout");
     layout->addWidget(comboBox);
 
-    layout2->setObjectName("footerComboBoxLayout2");
-    layout2->addWidget(searchBox);
+    layout2H1->setObjectName("footerComboBoxLayout2");
+    layout2H1->addWidget(searchBox);
+    layout2H1->addWidget(searchButton);
+    layout2->addLayout(layout2H1);
     layout2->addLayout(layout2H);
 
     layout3H->addWidget(cursorInfoLabel);
@@ -64,9 +69,10 @@ FooterBarArea::FooterBarArea(CodeEditor *editor) : QWidget(editor)
     cursorInfoLabel->setText("31:22");
     moreButton->setText("More");
     replaceButton->setText("Replace");
+    searchButton->setText("Search");
 
     connect(comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(comboChanged(int)));
-    connect(searchBox, SIGNAL(textChanged(const QString &)), this, SLOT(searchTextChanged(const QString &)));
+    connect(searchButton, SIGNAL(clicked()), this, SLOT(searchButtonClicked()));
     connect(resizeButton, SIGNAL(clicked()), this, SLOT(toggleResize()));
     connect(replaceButton, SIGNAL(clicked()), this, SLOT(replaceMatchedText()));
 
@@ -148,6 +154,8 @@ FooterBarArea::~FooterBarArea()
     layout3H = NULL;
     delete layout3;
     layout3 = NULL;
+    delete layout2H1;
+    layout2H1 = NULL;
     delete layout2H;
     layout2H = NULL;
     delete layout2;
@@ -171,5 +179,7 @@ FooterBarArea::~FooterBarArea()
     moreButton = NULL;
     delete replaceButton;
     replaceButton = NULL;
+    delete searchButton;
+    searchButton = NULL;
 }
 
