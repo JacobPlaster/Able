@@ -18,6 +18,7 @@ class AssetManager
         QStringList getLoadedSupportFileNames();
         SyntaxHighlightingRuleSet * getLanguageSupportByName(QString &name);
         QFileInfoList getStyleSheets();
+        QString loadStyleSheetByFilename(QString filename);
 
     private:
         bool isLoaded;

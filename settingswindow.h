@@ -7,6 +7,7 @@
 #include <QApplication>
 
 #include "assetmanager.h"
+#include "appconfigobject.h"
 
 namespace Ui {
 class SettingsWindow;
@@ -25,13 +26,14 @@ private slots:
     void themeChanged(int);
 
 signals:
-    void settingsChanged(QString styleSheet);
+    void settingsChanged(AppConfigObject);
 
 private:
     Ui::SettingsWindow *ui;
     AssetManager * assetManager;
     QFileInfoList styleSheets;
     QWidget * main;
+    AppConfigObject appConfig;
 };
 
 #endif // SETTINGSWINDOW_H

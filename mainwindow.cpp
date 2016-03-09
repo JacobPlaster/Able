@@ -56,16 +56,14 @@ void MainWindow::launchSettingsWindow()
 {
     settingsWindow = new SettingsWindow();
     settingsWindow->load(assetManager, this);
-    connect(settingsWindow, SIGNAL(settingsChanged(QString)),
-                         this, SLOT(updateSettings(QString)));
+    connect(settingsWindow, SIGNAL(settingsChanged(AppConfigObject)),
+                         this, SLOT(updateSettings(AppConfigObject)));
     settingsWindow->show();
 }
 
-void MainWindow::updateSettings(QString styleSheet)
+void MainWindow::updateSettings(AppConfigObject cfg)
 {
-    this->setStyleSheet(styleSheet);
-
-    mainApp->setStyleSheet(styleSheet);
+    mainApp->setStyleSheet(assetManager->loadStyleSheetByFilename(cfg.getStyleSheetLocation()));
 }
 
 void MainWindow::saveFile()

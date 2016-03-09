@@ -21,7 +21,8 @@ void AssetManager::loadAssets()
     mainAppFont = QFontDatabase::applicationFontFamilies(id2).at(0);
 
     // load css stylesheets
-    QFile styleFile(LIBS_FILEPATH + "/css/default.qss");
+    //QFile styleFile(LIBS_FILEPATH + "/css/default.qss");
+    QFile styleFile(LIBS_FILEPATH + "/css/dark.qss");
     if (!styleFile.exists()) {
             qDebug() << "File " << styleFile.fileName() << " does not exist.";
     }
@@ -32,6 +33,21 @@ void AssetManager::loadAssets()
 
     loadAllLanguageSupport();
     loadAllStyleSheets();
+}
+
+QString AssetManager::loadStyleSheetByFilename(QString filename)
+{
+    // load css stylesheets
+    QFile styleFile(filename);
+    if (!styleFile.exists()) {
+            qDebug() << "File " << styleFile.fileName() << " does not exist.";
+    }
+    styleFile.open( QFile::ReadOnly );
+    // Apply the loaded stylesheet
+    QString style = styleFile.readAll();
+    styleFile.close();
+
+    return style;
 }
 
 QString AssetManager::getStyle(const std::string &style) const

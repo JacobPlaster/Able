@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     fileviewwidget.cpp \
     treefileitem.cpp \
     footerbararea.cpp \
-    settingswindow.cpp
+    settingswindow.cpp \
+    appconfigobject.cpp
 
 HEADERS  += mainwindow.h \
     assetmanager.h \
@@ -32,7 +33,8 @@ HEADERS  += mainwindow.h \
     fileviewwidget.h \
     treefileitem.h \
     footerbararea.h \
-    settingswindow.h
+    settingswindow.h \
+    appconfigobject.h
 
 FORMS    += mainwindow.ui \
     settingswindow.ui

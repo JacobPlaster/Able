@@ -26,10 +26,8 @@ void SettingsWindow::load(AssetManager *am, QWidget * mainWindow)
 
 void SettingsWindow::themeChanged(int i)
 {
-   // qDebug() << styleSheets[i].absoluteFilePath();
-
-    emit settingsChanged(styleSheets[i].absoluteFilePath());
-    //mainApp->setStyleSheet(styleSheets[i].absoluteFilePath());
+    appConfig.setStyleSheetLocation(styleSheets[i].absoluteFilePath());
+    emit settingsChanged(appConfig);
 }
 
 SettingsWindow::~SettingsWindow()

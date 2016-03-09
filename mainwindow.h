@@ -9,6 +9,7 @@
 #include "textedittabwidget.h"
 #include "fileviewwidget.h"
 #include "settingswindow.h"
+#include "appconfigobject.h"
 
 
 namespace Ui {
@@ -52,7 +53,7 @@ private slots:
     void on_welcomeOpenProjectButton_clicked();
     void on_welcomeCreateButton_clicked();
     void launchSettingsWindow();
-    void updateSettings(QString styleSheet);
+    void updateSettings(AppConfigObject);
 };
 
 #endif // MAINWINDOW_H
