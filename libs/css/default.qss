@@ -157,3 +157,9 @@ QComboBox#settingsThemeComboBox
 {
   color: grey;
 }
+
+QWidget#codeEditorLineNumberArea
+{
+  background-color: #E6E6E6;
+  color: #A7A3A7;
+}

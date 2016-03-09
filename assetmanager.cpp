@@ -291,6 +291,21 @@ void AssetManager::loadLanguageSupportFile(QTextStream &in, const QString &inFil
             {
                 sRuleSet->autocorrectTrimFormat = QRegExp(line);
             }
+            // Line highlight
+            if(state==14)
+            {
+               sRuleSet->lineHighlightColor = currentColor;
+            }
+            // Search background
+            if(state==15)
+            {
+               sRuleSet->searchHighlightColor = currentColor;
+            }
+            // Search foreground
+            if(state==16)
+            {
+               sRuleSet->searchHighlightColorForeground = currentColor;
+            }
         }
     }
     // append parsed object file

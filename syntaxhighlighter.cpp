@@ -18,6 +18,11 @@ void SyntaxHighlighter::load(AssetManager *am, QString lan)
     }
 }
 
+bool SyntaxHighlighter::isLanguageSet()
+{
+    return languageSet;
+}
+
 void SyntaxHighlighter::setSyntaxHighlightingRules(SyntaxHighlightingRuleSet * in)
 {
     ruleSet = in;
@@ -87,7 +92,8 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
 void SyntaxHighlighter::highlightSearchExpression(QRegExp expr, const QString &text)
 {
     QTextCharFormat fmt;
-    fmt.setBackground(Qt::yellow);
+    fmt.setBackground(QColor(ruleSet->searchHighlightColor));
+    fmt.setForeground(QColor(ruleSet->searchHighlightColorForeground));
 
     if(expr.pattern() != "")
     {

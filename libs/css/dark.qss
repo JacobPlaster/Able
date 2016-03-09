@@ -1,13 +1,13 @@
 QWidget
 {
-    background-color: darkgrey;
+    background-color: #242424;
     border-bottom: none;
 }
 
 QPlainTextEdit
 {
-  background: lightgrey;
-  color: #fff;
+  background: #161718;
+  color: #E8E8E1;
   padding-left: 10px;
   padding-bottom: 37px;
   border: none;
@@ -19,11 +19,13 @@ QPlainTextEdit
 }
 FileViewWidget
 {
-  background: darkgrey;
+  background: #242424;
   border: none;
-  border-right: 1px solid white;
-  color: #fff;
+  color: #8C8D8C;
   padding-top: 5px;
+  border-right: 1px solid #44474A;
+  selection-background-color: #44474A;
+  alternate-background-color: white;
 }
 QScrollArea{
   border: none;
@@ -38,7 +40,8 @@ QTabBar::tab {
   border-radius: 2px;
 }
 QTabBar::tab:selected {
-  border-bottom: 2px solid #99A6BC;
+  border-bottom: 2px solid #306AB9;
+  color: #8C8D8C;
   padding-bottom: 3px;
 }
 QTabBar::tab::close-button {
@@ -156,5 +159,11 @@ QPushButton#footerSearchButton
 
 QComboBox#settingsThemeComboBox
 {
-  color: darkgrey;
+  color: grey;
+}
+
+QWidget#codeEditorLineNumberArea
+{
+  background-color: #292929;
+  color: #44474A;
 }

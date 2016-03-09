@@ -13,6 +13,7 @@
 CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent), completer(0)
 {
     lineNumberArea = new LineNumberArea(this);
+    lineNumberArea->setObjectName("codeEditorLineNumberArea");
     syntaxHighlighter = new SyntaxHighlighter(document());
     autoCompleteModel = NULL;
     footerHeight = 40;
@@ -309,7 +310,11 @@ void CodeEditor::highlightAndSearchCurrentLine()
     if (!isReadOnly()) {
         QTextEdit::ExtraSelection selection;
 
-        QColor lineColor = QColor("#f7f3f7");
+        QColor lineColor;
+        if(syntaxHighlighter->isLanguageSet())
+            lineColor = QColor(syntaxHighlighter->getRuleSet()->lineHighlightColor);
+        else
+            lineColor = QColor("#fff");
 
         selection.format.setBackground(lineColor);
         selection.format.setProperty(QTextFormat::FullWidthSelection, true);
@@ -338,7 +343,6 @@ void CodeEditor::highlightText(QRegExp &exp)
 void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
 {
     QPainter painter(lineNumberArea);
-    painter.fillRect(event->rect(), QColor("#E6E6E6"));
 
 
     QTextBlock block = firstVisibleBlock();
@@ -350,7 +354,6 @@ void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
     while (block.isValid() && top <= event->rect().bottom()) {
         if (block.isVisible() && bottom >= event->rect().top()) {
             QString number = QString::number(blockNumber + 1);
-            painter.setPen(QColor("#A7A3A7"));
             painter.drawText(0, top, lineNumberArea->width(), fontMetrics().height(),
                              Qt::AlignCenter, number);
         }

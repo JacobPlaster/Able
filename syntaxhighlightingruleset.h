@@ -29,6 +29,10 @@ public:
     QRegExp autocorrectTrimFormat;
 
     QTextCharFormat multiLineCommentFormat;
+
+    QString lineHighlightColor;
+    QString searchHighlightColor;
+    QString searchHighlightColorForeground;
 };
 
 #endif // SYNTAXHIGHLIGHTINGRULESET_H

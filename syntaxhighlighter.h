@@ -16,6 +16,7 @@ class SyntaxHighlighter: public QSyntaxHighlighter
        QStringList & getAutoCompleteRules();
        void setSyntaxHighlightingRules(SyntaxHighlightingRuleSet *);
        void highlightMatch(const QString &text, QRegExp &exp);
+       bool isLanguageSet();
 
         SyntaxHighlightingRuleSet *ruleSet;
 
