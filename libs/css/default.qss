@@ -23,6 +23,7 @@ FileViewWidget
   border: none;
   color: #505050;
   padding-top: 5px;
+  selection-background-color: #E6E6E6;
 }
 QScrollArea{
   border: none;

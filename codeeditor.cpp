@@ -380,6 +380,7 @@ void CodeEditor::changeLanguageSupport(QString supportFileName)
         syntaxHighlighter->setSyntaxHighlightingRules(NULL);
     QString tmp = this->document()->toPlainText();
     syntaxHighlighter->rehighlight();
+    highlightAndSearchCurrentLine();
 }
 
 
