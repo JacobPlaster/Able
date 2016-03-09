@@ -16,9 +16,10 @@
 #include <fstream>
 using namespace std;
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(QWidget *parent, QApplication *main) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    mainApp(main)
 {
     ui->setupUi(this);
     textEditTab = new TextEditTabWidget();
@@ -42,7 +43,29 @@ void MainWindow::loadMenuBar()
     connect(fileSaveAction, SIGNAL(triggered()), this, SLOT(saveFile()));
     oneMenu->addAction("Save as");
 
-    menu_bar->addAction(oneMenu->menuAction());
+    QMenu *windowMenu = new QMenu("Window");
+    QAction *launchSettingsAction = windowMenu->addAction("More");
+    connect(launchSettingsAction, SIGNAL(triggered()), this, SLOT(launchSettingsWindow()));
+
+
+    menu_bar->addMenu(oneMenu);
+    menu_bar->addMenu(windowMenu);
+}
+
+void MainWindow::launchSettingsWindow()
+{
+    settingsWindow = new SettingsWindow();
+    settingsWindow->load(assetManager, this);
+    connect(settingsWindow, SIGNAL(settingsChanged(QString)),
+                         this, SLOT(updateSettings(QString)));
+    settingsWindow->show();
+}
+
+void MainWindow::updateSettings(QString styleSheet)
+{
+    this->setStyleSheet(styleSheet);
+
+    mainApp->setStyleSheet(styleSheet);
 }
 
 void MainWindow::saveFile()

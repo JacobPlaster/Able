@@ -4,6 +4,7 @@
 #include <QFontDatabase>
 #include <QDebug>
 #include "syntaxhighlightingruleset.h"
+#include <QFileInfoList>
 
 
 class AssetManager
@@ -16,6 +17,7 @@ class AssetManager
         SyntaxHighlightingRuleSet * getLanguageSupportRuleSet(QString &language) const;
         QStringList getLoadedSupportFileNames();
         SyntaxHighlightingRuleSet * getLanguageSupportByName(QString &name);
+        QFileInfoList getStyleSheets();
 
     private:
         bool isLoaded;
@@ -26,8 +28,10 @@ class AssetManager
 
         // styles
         QString defaultStyle;
+        QFileInfoList styleSheets;
 
         void loadAllLanguageSupport();
+        void loadAllStyleSheets();
         void loadLanguageSupportFile(QTextStream &, const QString &);
         QString LIBS_FILEPATH;
         QVector<SyntaxHighlightingRuleSet*> syntaxHighlightingRules;

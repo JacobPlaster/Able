@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     syntaxhighlightingruleset.cpp \
     fileviewwidget.cpp \
     treefileitem.cpp \
-    footerbararea.cpp
+    footerbararea.cpp \
+    settingswindow.cpp
 
 HEADERS  += mainwindow.h \
     assetmanager.h \
@@ -30,9 +31,11 @@ HEADERS  += mainwindow.h \
     syntaxhighlightingruleset.h \
     fileviewwidget.h \
     treefileitem.h \
-    footerbararea.h
+    footerbararea.h \
+    settingswindow.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    settingswindow.ui
 
 RESOURCES += \
     resources.qrc

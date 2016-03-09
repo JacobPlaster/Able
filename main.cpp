@@ -8,23 +8,23 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    QApplication * a = new QApplication(argc, argv);
 
     // load assets in manager
     AssetManager *am = new AssetManager();
     am->loadAssets();
 
     // Load files into app
-    a.setStyleSheet(am->getStyle("MAIN_STYLE"));
-    a.setFont(am->getFont("MAIN_APP_FONT"));
+    a->setStyleSheet(am->getStyle("MAIN_STYLE"));
+    a->setFont(am->getFont("MAIN_APP_FONT"));
 
 
     // create main window
-    MainWindow w;
-    w.setWindowTitle("Able");
+    MainWindow * w = new MainWindow(0, a);
+    w->setWindowTitle("Able");
     // pass asset manager into load
-    w.load(am);
-    w.show();
+    w->load(am);
+    w->show();
 
-    return a.exec();
+    return a->exec();
 }

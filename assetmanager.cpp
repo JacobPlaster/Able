@@ -31,6 +31,7 @@ void AssetManager::loadAssets()
     styleFile.close();
 
     loadAllLanguageSupport();
+    loadAllStyleSheets();
 }
 
 QString AssetManager::getStyle(const std::string &style) const
@@ -44,6 +45,10 @@ QString AssetManager::getStyle(const std::string &style) const
     }
 
     return defaultStyle;
+}
+QFileInfoList AssetManager::getStyleSheets()
+{
+    return styleSheets;
 }
 
 QFont AssetManager::getFont(const std::string &font) const
@@ -117,6 +122,19 @@ QStringList AssetManager::getLoadedSupportFileNames()
         list << syntaxHighlightingRules[i]->fileName;
     }
     return list;
+}
+
+void AssetManager::loadAllStyleSheets()
+{
+    QDir cssDir(LIBS_FILEPATH + "/css");
+    QFileInfoList allCss = cssDir.entryInfoList();
+    foreach (QFileInfo fileI, allCss){
+        // if is a file and is a cfg file
+        if (!fileI.isDir() && fileI.completeSuffix() == "qss")
+        {
+             styleSheets << fileI;
+        }
+    }
 }
 
 // Parses the file into an object that the syntax highlighting algorithm can understand

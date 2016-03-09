@@ -3,10 +3,12 @@
 
 #include <QMenuBar>
 #include <QMainWindow>
+#include <QApplication>
 #include "assetmanager.h"
 #include "codeeditor.h"
 #include "textedittabwidget.h"
 #include "fileviewwidget.h"
+#include "settingswindow.h"
 
 
 namespace Ui {
@@ -18,8 +20,8 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    void load(AssetManager *inAssetManager);
+    explicit MainWindow(QWidget *parent = 0, QApplication *main = 0);
+    void load(AssetManager *);
     ~MainWindow();
 
 private:
@@ -40,12 +42,17 @@ private:
     QMenu* file_menu;
     QToolBar* file_toolbar;
 
+    SettingsWindow * settingsWindow;
+    QApplication * mainApp;
+
 private slots:
     void loadFile();
     void loadFolder();
     void saveFile();
     void on_welcomeOpenProjectButton_clicked();
     void on_welcomeCreateButton_clicked();
+    void launchSettingsWindow();
+    void updateSettings(QString styleSheet);
 };
 
 #endif // MAINWINDOW_H
