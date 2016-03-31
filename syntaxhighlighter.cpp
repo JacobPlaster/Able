@@ -1,5 +1,7 @@
 #include "syntaxhighlighter.h"
 
+#include <QElapsedTimer>
+
 SyntaxHighlighter::SyntaxHighlighter(QTextDocument* document): QSyntaxHighlighter(document)
 {
     languageSet = false;
@@ -126,6 +128,7 @@ void SyntaxHighlighter::highlightSearchExpression(QRegExp expr, const QString &t
                 suggestions << rxTrimmer.capturedTexts()[0];
         }
     }
+
     return suggestions;
  }
 

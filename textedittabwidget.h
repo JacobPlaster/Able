@@ -26,6 +26,7 @@ public:
     QList<CodeEditor *> getAllEditors() const;
     int numOfTabsOpen = 0;
 
+
 private:
     AssetManager *assetManager;
 
