@@ -21,8 +21,8 @@ void AssetManager::loadAssets()
     mainAppFont = QFontDatabase::applicationFontFamilies(id2).at(0);
 
     // load css stylesheets
-    //QFile styleFile(LIBS_FILEPATH + "/css/default.qss");
-    QFile styleFile(LIBS_FILEPATH + "/css/dark.qss");
+    QFile styleFile(LIBS_FILEPATH + "/css/default.qss");
+    //QFile styleFile(LIBS_FILEPATH + "/css/dark.qss");
     if (!styleFile.exists()) {
             qDebug() << "File " << styleFile.fileName() << " does not exist.";
     }
