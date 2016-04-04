@@ -96,13 +96,11 @@ void SyntaxHighlighter::highlightSearchExpression(QRegExp expr, const QString &t
     QTextCharFormat fmt;
     fmt.setBackground(QColor(ruleSet->searchHighlightColor));
     fmt.setForeground(QColor(ruleSet->searchHighlightColorForeground));
-
     if(expr.pattern() != "")
     {
         int index = expr.indexIn(text);
         while(index >= 0)
         {
-
             int length = expr.matchedLength();
             this->setFormat(index, length, fmt);
             index = expr.indexIn(text, index+length);
