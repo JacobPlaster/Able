@@ -31,6 +31,7 @@ private:
     void loadMenuBar();
     void runUnitTests();
     void resizeWithFileView();
+    void loadFileByName(QString &);
 
     AssetManager * assetManager;
     CodeEditor * codeEditor;
@@ -49,6 +50,7 @@ private:
 private slots:
     void loadFile();
     void loadFolder();
+    void createFile();
     void saveFile();
     void on_welcomeOpenProjectButton_clicked();
     void on_welcomeCreateButton_clicked();

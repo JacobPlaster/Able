@@ -33,7 +33,8 @@ void MainWindow::loadMenuBar()
     menu_bar->setNativeMenuBar(true);
 
     QMenu *oneMenu = new QMenu("File");
-    oneMenu->addAction("New File");
+    QAction *newFileLaunch = oneMenu->addAction("New File");
+    connect(newFileLaunch, SIGNAL(triggered()), this, SLOT(createFile()));
     QAction *fileOpenAction = oneMenu->addAction("Open File");
     connect(fileOpenAction, SIGNAL(triggered()), this, SLOT(loadFile()));
     QAction *folderOpenAction = oneMenu->addAction("Open Folder");
@@ -41,7 +42,6 @@ void MainWindow::loadMenuBar()
 
     QAction *fileSaveAction = oneMenu->addAction("Save");
     connect(fileSaveAction, SIGNAL(triggered()), this, SLOT(saveFile()));
-    oneMenu->addAction("Save as");
 
     QMenu *windowMenu = new QMenu("Window");
     QAction *launchSettingsAction = windowMenu->addAction("More");
@@ -87,14 +87,31 @@ void MainWindow::loadFolder()
     }
 }
 
+void MainWindow::createFile()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                                    "/home/documents");
+    QFile file( fileName );
+    file.open( QIODevice::WriteOnly );
+    file.close();
+    loadFileByName(fileName);
+
+}
+
+void MainWindow::loadFileByName(QString &name)
+{
+    textEditTab->addCodeTab(name);
+    ui->welcomeScreen->hide();
+}
+
+
 void MainWindow::loadFile()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
                                                     "/home/documents");
    if(fileName != "")
     {
-        textEditTab->addCodeTab(fileName);
-        ui->welcomeScreen->hide();
+        loadFileByName(fileName);
     }
 }
 
@@ -244,7 +261,7 @@ void MainWindow::resizeWithFileView()
 
 void MainWindow::on_welcomeCreateButton_clicked()
 {
-
+    createFile();
 }
 
 void MainWindow::on_welcomeOpenProjectButton_clicked()
