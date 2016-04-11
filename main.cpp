@@ -18,7 +18,6 @@ int main(int argc, char *argv[])
     a->setStyleSheet(am->getStyle("MAIN_STYLE"));
     a->setFont(am->getFont("MAIN_APP_FONT"));
 
-
     // create main window
     MainWindow * w = new MainWindow(0, a);
     w->setWindowTitle("Able");

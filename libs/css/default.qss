@@ -62,6 +62,14 @@ QLabel#welcomeLabelLogo
 {
   background-color: #F1F1F1;
 }
+QLabel#settingsLabel
+{
+  color: #404040;
+}
+QLabel#settingsText
+{
+  color: #404040;
+}
 
 QPushButton
 {

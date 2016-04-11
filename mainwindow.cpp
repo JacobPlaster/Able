@@ -78,6 +78,11 @@ void MainWindow::loadFolder()
                                                  "/home",
                                                  QFileDialog::ShowDirsOnly
                                                  | QFileDialog::DontResolveSymlinks);
+    loadFileToTree(dir);
+}
+
+void MainWindow::loadFileToTree(QString dir)
+{
     if(dir != "")
     {
         fileView->loadFolder(dir);
@@ -140,6 +145,46 @@ void MainWindow::load(AssetManager *inAssetManager)
     {
         ui->welcomeScreen->hide();
     }
+
+    loadUserCfg();
+}
+
+void MainWindow::loadUserCfg()
+{
+    QStringList cfg = assetManager->loadUserCfg();
+    qDebug() << cfg;
+    for(int i = 0; i < cfg.length(); i++)
+    {
+        if(i-1 >= 0)
+        {
+            // if load tab command found
+            if(cfg[i-1] == "CT:")
+            {
+                loadFileByName(cfg[i]);
+            }
+            // if load file directory found
+            if(cfg[i-1] == "PD:")
+            {
+                loadFileToTree(cfg[i]);
+            }
+        }
+    }
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    QStringList userCfg;
+    // save user details here
+    for(int i= 0; i < textEditTab->numOfTabsOpen; i++)
+    {
+        userCfg << "CT:" << textEditTab->getEditorAtIndex(i)->getCurrentFileInfo()->absoluteFilePath();
+    }
+    QStringList openDirs = fileView->getMainParentFolders();
+    for(int i2 = 0; i2 < openDirs.length(); i2++)
+    {
+        userCfg << "PD:" << openDirs[i2];
+    }
+    assetManager->saveUserCfg(userCfg);
 }
 
 MainWindow::~MainWindow()

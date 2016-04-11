@@ -46,6 +46,10 @@ private:
 
     SettingsWindow * settingsWindow;
     QApplication * mainApp;
+    void loadFileToTree(QString dir);
+
+protected:
+    void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
 private slots:
     void loadFile();
@@ -56,6 +60,7 @@ private slots:
     void on_welcomeCreateButton_clicked();
     void launchSettingsWindow();
     void updateSettings(AppConfigObject);
+    void loadUserCfg();
 };
 
 #endif // MAINWINDOW_H

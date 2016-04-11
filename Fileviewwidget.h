@@ -19,12 +19,15 @@ public:
     void load(AssetManager *, TextEditTabWidget *);
     int numOfItems = 0;
     void attachDir(QTreeWidgetItem * parent, const QString &);
+    void clearTree();
+    QStringList getMainParentFolders();
 
 private:
     bool projectLoaded;
     AssetManager * assetManager;
     TextEditTabWidget * tabWidget;
     QVector<TreeFileItem*> fileItems;
+    QStringList mainParentFolders;
 
 private slots:
     void loadToEditor(const QModelIndex&);

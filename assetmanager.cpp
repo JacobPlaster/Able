@@ -7,6 +7,7 @@
 AssetManager::AssetManager()
 {
     LIBS_FILEPATH = "/Users/jacobplaster/Documents/Able/libs";
+    TMP_USER_CFG_FILEPATH = "/tmp_user_cfg.txt";
 }
 
 void AssetManager::loadAssets()
@@ -33,6 +34,36 @@ void AssetManager::loadAssets()
 
     loadAllLanguageSupport();
     loadAllStyleSheets();
+}
+
+void AssetManager::saveUserCfg(QStringList cfg)
+{
+    QFile userCfg(LIBS_FILEPATH+TMP_USER_CFG_FILEPATH);
+    userCfg.open(QIODevice::WriteOnly | QIODevice::Text);
+    if (!userCfg.isOpen()) {
+            qDebug() << "Failed to open user cfg.";
+    }
+    QTextStream outStream(&userCfg);
+    for(int i = 0; i < cfg.length(); i++)
+        outStream << cfg[i] << "\n";
+    userCfg.close();
+}
+
+QStringList AssetManager::loadUserCfg()
+{
+    QStringList returnList;
+    QFile userCfg(LIBS_FILEPATH+TMP_USER_CFG_FILEPATH);
+    if (userCfg.open(QIODevice::ReadOnly))
+    {
+       QTextStream in(&userCfg);
+       while (!in.atEnd())
+       {
+          returnList << in.readLine();
+       }
+       userCfg.close();
+    }
+
+    return returnList;
 }
 
 QString AssetManager::loadStyleSheetByFilename(QString filename)

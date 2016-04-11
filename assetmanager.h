@@ -19,6 +19,8 @@ class AssetManager
         SyntaxHighlightingRuleSet * getLanguageSupportByName(QString &name);
         QFileInfoList getStyleSheets();
         QString loadStyleSheetByFilename(QString filename);
+        void saveUserCfg(QStringList cfg);
+        QStringList loadUserCfg();
 
     private:
         bool isLoaded;
@@ -35,6 +37,7 @@ class AssetManager
         void loadAllStyleSheets();
         void loadLanguageSupportFile(QTextStream &, const QString &);
         QString LIBS_FILEPATH;
+        QString TMP_USER_CFG_FILEPATH;
         QVector<SyntaxHighlightingRuleSet*> syntaxHighlightingRules;
 
 };

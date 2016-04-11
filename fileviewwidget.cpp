@@ -39,8 +39,14 @@ void FileViewWidget::load(AssetManager * am, TextEditTabWidget * tw)
     tabWidget = tw;
 }
 
+QStringList FileViewWidget::getMainParentFolders()
+{
+    return this->mainParentFolders;
+}
+
 void FileViewWidget::loadFolder(const QString &fileString)
 {
+    mainParentFolders << fileString;
     // create top level
     TreeFileItem * parent = new TreeFileItem();
     parent->setIsFolder(true);
@@ -53,6 +59,12 @@ void FileViewWidget::loadFolder(const QString &fileString)
     attachDir(parent, fileString);
 
     projectLoaded = true;
+}
+
+void FileViewWidget::clearTree()
+{
+    mainParentFolders.clear();
+    this->clear();
 }
 
 void FileViewWidget::attachDir(QTreeWidgetItem * parent, const QString &fileString)
