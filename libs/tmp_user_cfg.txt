@@ -1,10 +1,2 @@
 CT:
-/Users/jacobplaster/Desktop/newfile.py
-CT:
-/Users/jacobplaster/Desktop/another-test.html
-CT:
-/Users/jacobplaster/Documents/Able/main.cpp
-PD:
-/Users/jacobplaster/Desktop
-PD:
-/Users/jacobplaster/Documents/Able
+/Users/jacobplaster/Desktop/myFirstFile.html
