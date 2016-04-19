@@ -80,7 +80,7 @@ void CodeEditor::keyPressEvent(QKeyEvent *e)
         // gets the previous line which contains text
         QString previousLineText = "";
         int previousLineNum = this->textCursor().blockNumber();
-         do
+        do
         {
             QTextBlock previousLineBlock = this->document()->findBlockByLineNumber(previousLineNum);
             previousLineText = previousLineBlock.text();
@@ -93,14 +93,17 @@ void CodeEditor::keyPressEvent(QKeyEvent *e)
         {
             if(previousLineText[i] == ' ')
                 indentation +=1;
-            else
+            else if (previousLineText[i] == '\t')
+            {
+                indentation += 4; // add tab
+            } else
                 break;
+
         }
         // add indentation to current line
         QString indent = "";
         for(int i = 0; i < indentation; i++)
             indent = indent + " ";
-
         // use default even before append
         QPlainTextEdit::keyPressEvent(e);
         this->insertPlainText(indent);

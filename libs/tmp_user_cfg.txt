@@ -5,8 +5,6 @@ CT:
 CT:
 /Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/UnitTesting.py
 CT:
-/Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/bootstrap.js
-CT:
 /Users/jacobplaster/Documents/Able/libs/tests/TestDatasets/assetmanager.cpp
 PD:
 /Users/jacobplaster/Documents/Able/libs/tests/TestDatasets

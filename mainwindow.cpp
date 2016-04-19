@@ -152,7 +152,6 @@ void MainWindow::load(AssetManager *inAssetManager)
 void MainWindow::loadUserCfg()
 {
     QStringList cfg = assetManager->loadUserCfg();
-    qDebug() << cfg;
     for(int i = 0; i < cfg.length(); i++)
     {
         if(i-1 >= 0)
